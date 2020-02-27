@@ -2,7 +2,7 @@
 
 import React, { createContext } from "react";
 
-import { type ConfigurationStateType } from "./Types/ConfigurationtStateType";
+import type { ConfigurationStateType } from "./Types/ConfigurationtStateType";
 
 export const ConfigurationContext = createContext<ConfigurationStateType>({});
 

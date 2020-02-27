@@ -1,7 +1,7 @@
 // @flow
 
 import React, { createContext } from "react";
-import { type AppStateContextType } from "src/context/Types/AppStateContextType";
+import type { AppStateContextType } from "src/context/Types/AppStateContextType";
 import { useContext } from "react";
 
 export const AppStateContext = createContext<AppStateContextType>({

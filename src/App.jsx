@@ -42,5 +42,5 @@ export const App = ({ id }: AppProps) => {
   const { site, navigation } = useContext(ConfigurationContext);
   return <div>Test App</div>;
 };
-[];
+
 export default App;

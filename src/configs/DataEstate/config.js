@@ -1,6 +1,6 @@
 // @flow
 
-import { type ConfigurationStateType } from "src/context/Types/ConfigurationtStateType";
+import type { ConfigurationStateType } from "src/context/Types/ConfigurationtStateType";
 
 export const config: ConfigurationStateType = {
   api: {

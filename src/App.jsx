@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => {
 export const App = ({ id }: AppProps) => {
   const classes = useStyles();
 
-  const { site, navigation } = useContext(ConfigurationContext);
+  const { site } = useContext(ConfigurationContext);
   return <div>Test App</div>;
 };
 

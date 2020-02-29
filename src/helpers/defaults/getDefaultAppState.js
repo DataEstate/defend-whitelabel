@@ -1,6 +1,6 @@
 // @flow
 
-import type { AppStateType } from "../../context/Types/AppStateType";
+import type { AppStateType } from "src/context/AppState/Types/AppStateType";
 
 export type GetDefaultAppState = () => AppStateType;
 

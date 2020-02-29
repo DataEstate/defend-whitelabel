@@ -1,6 +1,6 @@
 // @flow
 
-import type { AppStateType } from "src/context/Types/AppStateType";
+import type { AppStateType } from "./AppStateType";
 
 export type AppStateContextType = AppStateType & {
   dispatch: any

@@ -1,8 +1,8 @@
 // @flow
 
 import React, { useReducer } from "react";
-import AppStateContext from "./AppStateContext";
-import AppStateReducer from "./AppStateReducers";
+import { AppStateContext } from "src/context/AppState";
+import { AppStateReducer } from "src/context/AppState";
 import type { AppStateType } from "./Types/AppStateType";
 
 const { Provider } = AppStateContext;

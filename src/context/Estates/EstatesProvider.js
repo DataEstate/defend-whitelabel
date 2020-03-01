@@ -3,29 +3,66 @@
 import React, { useReducer, useContext } from "react";
 import superagent from "superagent";
 import { EstatesContext } from "./EstatesContext";
+import { EstatesState } from "./EstatesState";
+import { setEstatesListAction, setIsFetchingEstatesAction } from "./Actions";
 import { ConfigurationContext } from "src/context";
+
+import type { EstateType } from "./Types/Data/EstateType";
+import type { EstatesType } from "./Types/Data/EstatesType";
+
+type GetIdList = (responseList: Array<EstateType>) => string[];
+type GetListData = (responseList: Array<EstateType>) => EstatesType;
+
+type Props = {
+  children: any
+};
 
 const { Provider } = EstatesContext;
 
-export const EstatesProvider = ({ children }) => {
+const getIdList: GetIdList = responseList =>
+  responseList ? responseList.map(listItem => listItem.id) : [];
+
+const getListData: GetListData = responseList => {
+  const listData = responseList
+    ? responseList.reduce((prev, listItem) => {
+        return {
+          ...prev,
+          [listItem.id]: listItem
+        };
+      }, {})
+    : {};
+  return listData;
+};
+
+export const EstatesProvider = ({ children }: Props) => {
   const { api } = useContext(ConfigurationContext);
   const { baseUrl, apiKey, defaultQuery } = api;
+  const [state, dispatch] = useReducer(EstatesState, {
+    list: [],
+    listData: {},
+    fetch: {
+      isFetching: false
+    }
+  });
 
-  const fetchEstates = async (endpoint: string, params?: any) => {
+  const fetchEstates = async (params?: any) => {
+    dispatch(setIsFetchingEstatesAction(true));
     const response = await superagent
-      .get(`${baseUrl}/endpoint`)
-      .header("API-KEY", apiKey)
+      .get(`${baseUrl}/estates/data`)
+      .set("API-KEY", apiKey)
       .query({
         ...defaultQuery,
         ...params
       });
-    console.log(response);
-    return response;
+    dispatch(
+      setEstatesListAction(getIdList(response.body), getListData(response.body))
+    );
   };
   return (
     <Provider
       value={{
-        fetchEstates,
+        ...state,
+        fetchEstates: fetchEstates,
         dispatch: () => {}
       }}
     >

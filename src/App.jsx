@@ -16,6 +16,7 @@ import {
   Button
 } from "@material-ui/core";
 import { ConfigurationContext } from "src/context";
+import { SampleContainer } from "src/containers";
 
 type AppProps = {
   id?: string
@@ -40,7 +41,12 @@ export const App = ({ id }: AppProps) => {
   const classes = useStyles();
 
   const { site } = useContext(ConfigurationContext);
-  return <div>Test App</div>;
+  return (
+    <div className="test-app">
+      <Typography variant="h2">{site.title}</Typography>
+      <SampleContainer />
+    </div>
+  );
 };
 
 export default App;

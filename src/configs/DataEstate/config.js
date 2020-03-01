@@ -4,8 +4,11 @@ import type { ConfigurationStateType } from "src/context/Configuration/Types/Con
 
 export const config: ConfigurationStateType = {
   api: {
-    baseUrl: "http://api.dataestate.estates/v2",
-    apiKey: "55ca805b86cb912c49a76292"
+    baseUrl: `${process.env.API_URL || ""}`,
+    apiKey: `${process.env.API_KEY || ""}`,
+    defaultQuery: {
+      pg: 1
+    }
   },
   site: {
     title: "Data Estate",

@@ -5,6 +5,7 @@ const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const dotenv = require("dotenv");
 
 module.exports = () => {
   const NODE_ENV = process.env.NODE_ENV;
@@ -14,6 +15,12 @@ module.exports = () => {
   const envPath = basePath + (NODE_ENV !== undefined ? `.${NODE_ENV}` : "");
 
   const finalPath = fs.existsSync(envPath) ? envPath : basePath;
+
+  const env = dotenv.config({ path: finalPath }).parsed;
+  const envVars = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+  }, {});
 
   return {
     entry: {
@@ -69,7 +76,8 @@ module.exports = () => {
         // Options similar to the same options in webpackOptions.output
         // both options are optional
         filename: "style.css"
-      })
+      }),
+      new webpack.DefinePlugin(envVars)
     ]
   };
 };

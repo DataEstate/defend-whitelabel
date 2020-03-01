@@ -4,10 +4,7 @@ export type ConfigurationStateType = {
   api: {
     baseUrl: string,
     apiKey: string,
-    defaultQuery: {
-      size: number,
-      pg: number
-    }
+    defaultQuery: { [string]: number | string }
   },
   site: {
     title: string,

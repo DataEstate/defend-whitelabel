@@ -45,18 +45,23 @@ export const EstatesProvider = ({ children }: Props) => {
     }
   });
 
-  const fetchEstates = async (params?: any) => {
+  const fetchEstates = (params?: any) => {
     dispatch(setIsFetchingEstatesAction(true));
-    const response = await superagent
+    superagent
       .get(`${baseUrl}/estates/data`)
       .set("API-KEY", apiKey)
       .query({
         ...defaultQuery,
         ...params
+      })
+      .then(response => {
+        dispatch(
+          setEstatesListAction(
+            getIdList(response.body),
+            getListData(response.body)
+          )
+        );
       });
-    dispatch(
-      setEstatesListAction(getIdList(response.body), getListData(response.body))
-    );
   };
   return (
     <Provider

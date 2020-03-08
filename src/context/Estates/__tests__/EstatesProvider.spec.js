@@ -16,12 +16,21 @@ describe("src/context/Estates/EstatesProvider", () => {
         }
       }
     };
+    const mockConsumer = fakeProps => {
+      expect(fakeProps.list.length).to.equal(0);
+      expect(fakeProps.listData).to.deep.equal({});
+      return <div>fake</div>;
+    };
     const fakeComponent = mount(
       <ConfigurationProvider config={stubConfig}>
-        <EstatesProvider />
+        <EstatesProvider>
+          <EstatesContext.Consumer>{mockConsumer}</EstatesContext.Consumer>
+        </EstatesProvider>
       </ConfigurationProvider>
     );
+  });
 
-    console.log(fakeComponent.debug());
+  it("can can fetchEstates", () => {
+    // @TODO
   });
 });

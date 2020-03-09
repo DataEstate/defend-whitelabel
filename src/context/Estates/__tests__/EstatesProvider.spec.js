@@ -29,8 +29,4 @@ describe("src/context/Estates/EstatesProvider", () => {
       </ConfigurationProvider>
     );
   });
-
-  it("can can fetchEstates", () => {
-    // @TODO
-  });
 });

@@ -56,5 +56,5 @@ describe('path/to/the/component', ()=> {
 });
 ```
 
-### Functional Testing
+#### Functional Testing
 Functional testing is done using **cypress** with cucumber syntax. 

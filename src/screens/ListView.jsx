@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   button: {
-    marginBottom: 10
+    marginBottom: theme.spacing(1)
   }
-});
+}));
 export const ListView = () => {
   const classes = useStyles();
 

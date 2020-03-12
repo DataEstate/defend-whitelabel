@@ -6,6 +6,7 @@ module.exports = {
     flow: "flow",
     local:
       "cross-env NODE_ENV=local webpack-dev-server --open --mode development",
-    test: "npx jest"
+    test: "npx jest",
+    flow: "npx flow check"
   }
 };

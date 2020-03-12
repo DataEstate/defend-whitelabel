@@ -32,6 +32,7 @@ export const SampleComponent = () => {
   return (
     <div>
       <Button
+        className="test-button"
         color="primary"
         variant="contained"
         onClick={() => {

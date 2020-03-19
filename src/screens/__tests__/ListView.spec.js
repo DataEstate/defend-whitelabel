@@ -1,18 +1,20 @@
 import React from 'react';
 import { expect } from 'chai';
-// import { mount } from 'enzyme';
 import { shallow } from 'enzyme';
-import { Home } from '../Home';
-import { Link } from 'react-router-dom';
-import { MemoryRouter } from 'react-router-dom';
+import { ListView } from '../ListView';
+import { Typography } from '@material-ui/core';
+
 describe('src/screens/ListView', () => {
   it('jump to other pages with Link', () => {
-    const fakeComponent = shallow(
-      <MemoryRouter>
-        <Home />
-      </MemoryRouter>
+    const fakeComponent = shallow(<ListView />);
+
+    console.log(fakeComponent.debug());
+    expect(fakeComponent.find('.makeStyles-button-1').text()).to.equal(
+      'Back to Home Page'
     );
 
-    expect(fakeComponent.find(Link).props().to).toBe('/listview');
+    expect(fakeComponent.find(Typography).text()).to.equal(
+      'This is ListView page'
+    );
   });
 });

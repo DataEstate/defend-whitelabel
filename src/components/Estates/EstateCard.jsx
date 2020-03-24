@@ -10,21 +10,13 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
+import { Estate } from './Estate';
 
 const useStyles = makeStyles({
   media: {
     height: 140,
   }
 });
-
-type Estate = {
-  id: string,
-  name: string,
-  state_code: string,
-  category: string,
-  locality: string, //This is the city
-  description?: string // Optional
-}
 
 export const EstateCard = ({ id, name, state_code, category, locality, description }: Estate) => {
   const classes = useStyles();

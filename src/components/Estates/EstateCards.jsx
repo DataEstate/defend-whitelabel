@@ -4,10 +4,11 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
+import { Estate } from './Estate';
 import EstateCard from './EstateCard';
 
 type Props = {
-  estateData: Array<typeof EstateCard>,
+  estateData: Array<Estate>,
 }
 
 export const EstateCards = ({ estateData }: Props) => {

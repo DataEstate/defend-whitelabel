@@ -30,31 +30,31 @@ export const EstateCard = ({ id, name, state_code, category, locality, descripti
   const classes = useStyles();
 
   return (
-    <Card key={id} className={classes.root}>
-        <CardMedia
-          component={'img'}
-          className={classes.media}
-          image="https://source.unsplash.com/random"
-          title={name}
-          alt={name}
-        />
-        <CardContent className={classes.cardContent} key={id}>
-          <Typography gutterBottom variant="h5" component="h2">
-            {name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {state_code}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {category}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {locality}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {description}
-          </Typography>
-        </CardContent>
+    <Card key={id} data-test-id={id} className={classes.root}>
+      <CardMedia
+        component={'img'}
+        className={classes.media}
+        image="https://source.unsplash.com/random"
+        title={name}
+        alt={name}
+      />
+      <CardContent className={classes.cardContent} key={id}>
+        <Typography gutterBottom variant="h5" component="h2">
+          {name}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {state_code}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {category}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {locality}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {description}
+        </Typography>
+      </CardContent>
       <CardActions>
         <Grid 
           container

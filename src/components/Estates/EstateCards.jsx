@@ -15,7 +15,7 @@ export const EstateCards = ({ estateData }: Props) => {
     <Container>
       <Grid container spacing={3}>
         {estateData && estateData.map(estateItem => (
-          <Grid item xs={12} sm={4} md={4} lg={3} xl={3}>
+          <Grid item xs={12} sm={4} md={4} lg={3} xl={3} key={estateItem.id}>
             <EstateCard 
               id={estateItem.id}
               name={estateItem.name}

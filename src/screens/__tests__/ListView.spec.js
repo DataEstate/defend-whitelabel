@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { ListView } from '../ListView';
-import { EstateCards } from '../../components';
+import { EstateCards } from 'src/components';
 import { Container, Button } from '@material-ui/core';
 
 describe('src/screens/ListView', () => {
@@ -11,6 +11,6 @@ describe('src/screens/ListView', () => {
 
     expect(fakeComponent.find(Button).prop('variant')).to.equal('contained');
 
-    expect(fakeComponent.find(EstateCards)).to.be.exist;
+    expect(fakeComponent.find(EstateCards)).to.exist;
   });
 });

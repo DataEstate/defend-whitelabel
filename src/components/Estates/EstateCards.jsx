@@ -4,10 +4,11 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import type { EstateCardType } from '../../context/Estates/Types/Data/EstateCardType';
+import type { EstateCardType } from '../../context/Estates/Types/EstateCardType';
 import EstateCard from './EstateCard';
 
 type Props = {
+  id: string,
   estateData: Array<EstateCardType>,
 }
 

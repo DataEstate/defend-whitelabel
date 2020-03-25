@@ -10,7 +10,7 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
-import type { EstateType as Estate } from '../../context/Estates/Types/Data/EstateType';
+import type { EstateCardType } from '../../context/Estates/Types/Data/EstateCardType';
 
 const useStyles = makeStyles({
   media: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const EstateCard = ({ id, name, state_code, category, locality, description }: Estate) => {
+export const EstateCard = ({ id, name, state_code, category, locality, description }: EstateCardType) => {
   const classes = useStyles();
 
   return (

@@ -3,7 +3,6 @@ import { expect } from "chai";
 import { shallow } from "enzyme";
 import { EstateCard } from "../EstateCard";
 import { EstateCards } from "../EstateCards";
-import { Container } from '@material-ui/core';
 
 describe("src/components/Estates/EstateCards", () => {
   it("can render component and match the child total component", () => {

@@ -5,7 +5,7 @@ import { Button, Typography } from "@material-ui/core";
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
-import type { EstateType as Estate } from '../context/Estates/Types/Data/EstateType';
+import type { EstateCardType } from '../context/Estates/Types/Data/EstateCardType';
 import { EstateCards } from '../components';
 
 const useStyles = makeStyles(theme => ({
@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const stubData: Array<Estate> = [
+const stubData: Array<EstateCardType> = [
   {
     id: 'AAA',
     name: 'Estate 1',

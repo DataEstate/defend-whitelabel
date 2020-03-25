@@ -119,7 +119,7 @@ export const ListView = () => {
   return (
     <div id="ListViewScreen">
       <Typography variant="h3">{"This is ListView page"}</Typography>
-      <EstateCards estateData={stubData} />
+      <EstateCards id="EstateListing" estateData={stubData} />
       <Link className={classnames("Navigation__Link", "to-Home")} to="/">
         <Button variant="contained" color="primary" className={classes.button}>
           Back to Home Page

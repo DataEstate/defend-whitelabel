@@ -4,7 +4,7 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import { Estate } from './Estate';
+import type { EstateType as Estate } from '../../context/Estates/Types/Data/EstateType';
 import EstateCard from './EstateCard';
 
 type Props = {

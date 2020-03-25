@@ -10,7 +10,7 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
-import { Estate } from './Estate';
+import type { EstateType as Estate } from '../../context/Estates/Types/Data/EstateType';
 
 const useStyles = makeStyles({
   media: {

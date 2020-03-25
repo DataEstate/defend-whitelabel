@@ -4,7 +4,9 @@ import classnames from "classnames";
 import { Button, Typography } from "@material-ui/core";
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Estate, EstateCards } from '../components';
+
+import type { EstateType as Estate } from '../context/Estates/Types/Data/EstateType';
+import { EstateCards } from '../components';
 
 const useStyles = makeStyles(theme => ({
   button: {

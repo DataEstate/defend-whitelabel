@@ -17,8 +17,8 @@ export const EstateCards = ({ id, estateData }: Props) => {
     <div id={id}>
       <Container>
         <Grid container spacing={3}>
-          {estateData && estateData.map(estateItem => (
-            <Grid item xs={12} sm={4} md={4} lg={3} xl={3} key={estateItem.id}>
+          {estateData && estateData.map((estateItem, index) => (
+            <Grid data-test-id={`estate-item-${index}`} item xs={12} sm={4} md={4} lg={3} xl={3} key={estateItem.id}>
               <EstateCard 
                 id={estateItem.id}
                 name={estateItem.name}

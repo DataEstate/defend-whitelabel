@@ -3,12 +3,10 @@
 
 name: Node.js CI
 
-on:
-  pull_request:
+on: pull_request
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -16,14 +14,14 @@ jobs:
         node-version: [10.x, 12.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npx nps test
-    - run: npx nps flow
-    - run: npx nps cypress
-      env:
-        CI: true
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npx nps test
+      - run: npx nps flow
+      - run: npx nps cypress
+        env:
+          CI: true

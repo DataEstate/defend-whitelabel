@@ -2,6 +2,7 @@
   "name": "defend-whitelabel",
   "version": "0.0.1",
   "description": "Data Estate React whitelabel website",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "start": "npx nps local",

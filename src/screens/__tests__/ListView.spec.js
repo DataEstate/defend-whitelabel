@@ -2,7 +2,8 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { ListView } from '../ListView';
-import { Typography, Button } from '@material-ui/core';
+import { EstateCards } from 'src/components';
+import { Container, Button } from '@material-ui/core';
 
 describe('src/screens/ListView', () => {
   it('jump to other pages with Link', () => {
@@ -10,6 +11,6 @@ describe('src/screens/ListView', () => {
 
     expect(fakeComponent.find(Button).prop('variant')).to.equal('contained');
 
-    expect(fakeComponent.find(Typography).text()).to.equal('This is ListView page');
+    expect(fakeComponent.find(EstateCards)).to.exist;
   });
 });

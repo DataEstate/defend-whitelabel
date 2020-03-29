@@ -7,7 +7,8 @@
     "start": "webpack-dev-server --open --mode development",
     "flow": "flow",
     "build": "webpack --mode production",
-    "test": "npx jest"
+    "test": "npx jest",
+    "cytest": "npx cypress run"
   },
   "author": "",
   "license": "MIT",

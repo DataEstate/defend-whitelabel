@@ -7,6 +7,7 @@ module.exports = {
     local:
       "cross-env NODE_ENV=local webpack-dev-server --open --mode development",
     test: "npx jest",
-    flow: "npx flow check"
+    flow: "npx flow check",
+    cytest: "npx cypress run"
   }
 };

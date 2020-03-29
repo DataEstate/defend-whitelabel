@@ -20,8 +20,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npx nps test
-      - run: npx nps flow
-      - run: npx nps cypress
+      - run: npx nps codeintegrity
         env:
           CI: true

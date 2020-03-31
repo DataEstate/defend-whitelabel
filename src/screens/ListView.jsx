@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 import type { EstateCardType } from '../context/Estates/Types/EstateCardType';
-import { EstateCards } from '../components';
+import { EstateContainer } from 'src/containers';
+import { EstatesProvider } from "src/context/Estates";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -119,7 +120,9 @@ export const ListView = () => {
   return (
     <div id="ListViewScreen">
       <Typography variant="h3">{"This is ListView page"}</Typography>
-      <EstateCards id="EstateListing" estateData={stubData} />
+      <EstatesProvider>
+        <EstateContainer />
+      </EstatesProvider>
       <Link className={classnames("Navigation__Link", "to-Home")} to="/">
         <Button variant="contained" color="primary" className={classes.button}>
           Back to Home Page

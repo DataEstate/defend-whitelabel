@@ -8,7 +8,8 @@ export const EstatesContext = createContext<EstatesContextType>({
   listData: {},
   fetch: { isFetching: false },
   fetchEstates: null,
-  dispatch: null
+  dispatch: null,
+  isFetching: false
 });
 
 export default EstatesContext;

@@ -2,7 +2,6 @@
 
 import React, { useContext, useEffect, Fragment } from "react";
 import { Backdrop, CircularProgress } from "@material-ui/core";
-import { EstatesProvider } from "src/context/Estates";
 import { EstateCards } from "src/components/Estates";
 import { makeStyles } from '@material-ui/core/styles';
 import { EstatesContext } from "src/context/Estates";
@@ -16,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 
 export const EstateContainer = () => {
   const styles = useStyles();
-  const { list, listData, fetchEstates, isFetching } = useContext(EstatesContext);
+  const { list, listData, fetchEstates, fetch } = useContext(EstatesContext);
 
   // load data for the first time only (no paging for now)
   useEffect(() => {
@@ -29,7 +28,7 @@ export const EstateContainer = () => {
   const renderList = () => {
     return (
       list ? (
-        <EstateCards id="EstateListing" estateDataIds={list} estateData={listData} />
+        <EstateCards id="EstateListing" list={Object.values(listData)} />
       ) : (
         <Fragment />
       )
@@ -38,7 +37,7 @@ export const EstateContainer = () => {
 
   return (
     <Fragment>
-      <Backdrop className={styles.backdrop} open={isFetching}>
+      <Backdrop className={styles.backdrop} open={Boolean(fetch.isFetching)}>
         <CircularProgress />
       </Backdrop>
       {renderList()}

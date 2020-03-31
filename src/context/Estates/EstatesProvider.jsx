@@ -70,7 +70,6 @@ export const EstatesProvider = ({ children }: Props) => {
         ...state,
         fetchEstates: fetchEstates,
         dispatch: () => {},
-        isFetching: false
       }}
     >
       {children}

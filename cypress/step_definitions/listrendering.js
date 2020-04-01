@@ -60,3 +60,17 @@ Given(/I see that there are "([^"]*)" listings on one row on (desktop|tablet|mob
       
   });
 });
+
+Given(/I see that there are listings from API/, () => {
+  // get EstateCards
+  cy.get(`#EstateListing`).should("exist");
+
+  // we still don't know if the API return 12 data or not (let say if the db still empty)
+  // so we can check with this
+  cy.get('#EstateListing')
+    .find('[data-test-id*="estate-item"]')
+    .then(listing => {
+      const listingCount = Cypress.$(listing).length;
+      expect(listing).to.have.length(listingCount);
+    });
+});

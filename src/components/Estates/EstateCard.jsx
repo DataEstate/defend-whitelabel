@@ -10,7 +10,7 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
-import type { EstateCardType } from '../../context/Estates/Types/EstateCardType';
+import type { EstateCardType } from './EstateCardType';
 
 const useStyles = makeStyles({
   media: {

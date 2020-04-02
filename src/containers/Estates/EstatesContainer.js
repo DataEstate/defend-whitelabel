@@ -13,8 +13,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const EstateContainer = () => {
-  const styles = useStyles();
+export const EstatesContainer = () => {
+  const classes = useStyles();
   const { list, listData, fetchEstates, fetch } = useContext(EstatesContext);
 
   // load data for the first time only (no paging for now)
@@ -37,7 +37,7 @@ export const EstateContainer = () => {
 
   return (
     <Fragment>
-      <Backdrop className={styles.backdrop} open={Boolean(fetch.isFetching)}>
+      <Backdrop className={classes.backdrop} open={Boolean(fetch.isFetching)}>
         <CircularProgress />
       </Backdrop>
       {renderList()}
@@ -45,4 +45,4 @@ export const EstateContainer = () => {
   );
 };
 
-export default EstateContainer;
+export default EstatesContainer;

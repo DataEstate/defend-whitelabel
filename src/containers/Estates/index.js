@@ -1,3 +1,3 @@
 // @flow
 
-export { default as EstateContainer } from "./EstateContainer";
+export { default as EstatesContainer } from "./EstatesContainer";

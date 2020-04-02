@@ -4,8 +4,7 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import type { EstateCardType } from '../../context/Estates/Types/EstateCardType';
-import type { EstatesType } from "src/context/Estates/Types/Data/EstatesType";
+import type { EstateCardType } from './EstateCardType';
 
 import EstateCard from './EstateCard';
 

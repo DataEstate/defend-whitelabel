@@ -1,7 +1,8 @@
 // @flow
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { 
+
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import {
   Card,
   CardActions,
   CardContent,
@@ -9,22 +10,26 @@ import {
   Button,
   Grid,
   Typography
-} from '@material-ui/core';
-import type { EstateCardType } from '../../context/Estates/Types/EstateCardType';
+} from "@material-ui/core";
+import type { EstateType } from "src/context/Estates/Types/Data/EstateType";
 
 const useStyles = makeStyles({
   media: {
-    height: 140,
+    height: 140
   }
 });
 
-export const EstateCard = ({ id, name, state_code, category, locality, description }: EstateCardType) => {
-  const classes = useStyles();
+type Props = {
+  estateData: EstateType
+};
 
+export const EstateCard = ({ estateData }: Props) => {
+  const classes = useStyles();
+  const { id, name, state_code, category, locality, description } = estateData;
   return (
     <Card key={id} data-test-id={id} className={classes.root}>
       <CardMedia
-        component={'img'}
+        component={"img"}
         className={classes.media}
         image="https://source.unsplash.com/random"
         title={name}
@@ -48,18 +53,22 @@ export const EstateCard = ({ id, name, state_code, category, locality, descripti
         </Typography>
       </CardContent>
       <CardActions>
-        <Grid 
-          container
-          justify="space-evenly"
-          alignItems="center"
-        >
+        <Grid container justify="space-evenly" alignItems="center">
           <Grid item>
-            <Button variant="contained" color="primary" className={classes.estateButton}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.estateButton}
+            >
               Read More
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary" className={classes.estateButton}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.estateButton}
+            >
               Book Direct
             </Button>
           </Grid>
@@ -67,6 +76,6 @@ export const EstateCard = ({ id, name, state_code, category, locality, descripti
       </CardActions>
     </Card>
   );
-}
+};
 
 export default EstateCard;

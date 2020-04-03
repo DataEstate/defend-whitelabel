@@ -17,3 +17,9 @@ Feature: Estate listing responsiveness
     Given I navigate to the "Home" screen
     When I choose to go to the "ListView"
     Then I see that there are "1" listings on one row on mobile
+
+  @i-see-estate-listing
+  Scenario: I navigate to list view
+    Given I navigate to the "Home" screen
+    When I choose to go to the "ListView"
+    Then I see that there are listings from API

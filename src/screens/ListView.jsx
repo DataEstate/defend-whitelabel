@@ -5,8 +5,8 @@ import { Button, Typography } from "@material-ui/core";
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
-import type { EstateCardType } from '../context/Estates/Types/EstateCardType';
-import { EstateCards } from '../components';
+import { EstatesContainer } from 'src/containers';
+import { EstatesProvider } from "src/context/Estates";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -14,112 +14,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const stubData: Array<EstateCardType> = [
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-  {
-    id: 'AAA',
-    name: 'Estate 1',
-    state_code: 'State Code 1',
-    category: 'Category 1',
-    locality: 'Locality 1',
-    description: 'Description 1'
-  },
-];
-
 export const ListView = () => {
   const classes = useStyles();
 
   return (
     <div id="ListViewScreen">
       <Typography variant="h3">{"This is ListView page"}</Typography>
-      <EstateCards id="EstateListing" estateData={stubData} />
+      <EstatesProvider>
+        <EstatesContainer />
+      </EstatesProvider>
       <Link className={classnames("Navigation__Link", "to-Home")} to="/">
         <Button variant="contained" color="primary" className={classes.button}>
           Back to Home Page

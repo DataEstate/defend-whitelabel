@@ -15,7 +15,9 @@ export const EstatesState = (state: EstatesContextStateType, action: any) => {
     case "SET_IS_FETCHING":
       return {
         ...state,
-        isFetching: action.isFetching
+        fetch: {
+          isFetching: action.isFetching
+        }
       };
     default:
       // Or should we throw an error

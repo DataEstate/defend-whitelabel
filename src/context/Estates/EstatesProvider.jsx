@@ -61,6 +61,7 @@ export const EstatesProvider = ({ children }: Props) => {
             getListData(response.body)
           )
         );
+        dispatch(setIsFetchingEstatesAction(false));
       });
   };
   return (
@@ -68,7 +69,7 @@ export const EstatesProvider = ({ children }: Props) => {
       value={{
         ...state,
         fetchEstates: fetchEstates,
-        dispatch: () => {}
+        dispatch: () => {},
       }}
     >
       {children}

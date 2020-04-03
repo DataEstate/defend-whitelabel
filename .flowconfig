@@ -6,6 +6,8 @@
 [include]
 
 [libs]
+./flow-typed/
+./flow-typed/npm/
 
 [lints]
 sketchy-null=warn

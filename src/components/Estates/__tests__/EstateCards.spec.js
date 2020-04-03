@@ -22,12 +22,13 @@ describe("src/components/Estates/EstateCards", () => {
         category: 'Category 2',
         locality: 'Locality 2',
         description: 'Description 2'
-      },
+      }
     ];
 
     const fakeComponent = shallow(
       <EstateCards 
-        estateData={stubData}
+        id="EstateListing"
+        list={stubData}
       />
     );
 

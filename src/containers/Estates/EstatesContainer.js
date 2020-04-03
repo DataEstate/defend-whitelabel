@@ -3,14 +3,14 @@
 import React, { useContext, useEffect, Fragment } from "react";
 import { Backdrop, CircularProgress } from "@material-ui/core";
 import { EstateCards } from "src/components/Estates";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import { EstatesContext } from "src/context/Estates";
 
 const useStyles = makeStyles(theme => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
-  },
+    color: "#fff"
+  }
 }));
 
 export const EstatesContainer = () => {
@@ -26,12 +26,10 @@ export const EstatesContainer = () => {
   }, []);
 
   const renderList = () => {
-    return (
-      list ? (
-        <EstateCards id="EstateListing" list={Object.values(listData)} />
-      ) : (
-        <Fragment />
-      )
+    return list ? (
+      <EstateCards id="EstateListing" list={Object.values(listData)} />
+    ) : (
+      <Fragment />
     );
   };
 

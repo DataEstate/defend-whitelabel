@@ -1,13 +1,13 @@
 // @flow
 import React from "react";
 import { Container, Grid } from "@material-ui/core";
-import type { EstateCardType } from "./Types/EstateCardType";
+import type { EstateType } from "src/context/Estates/Types/Data/EstateType";
 
 import EstateCard from "./EstateCard";
 
 type Props = {
   id: string,
-  list: Array<EstateCardType>
+  list: Array<EstateType>
 };
 
 export const EstateCards = ({ id, list }: Props) => {
@@ -28,14 +28,7 @@ export const EstateCards = ({ id, list }: Props) => {
                   xl={3}
                   key={estateItem.id}
                 >
-                  <EstateCard
-                    id={estateItem.id}
-                    name={estateItem.name}
-                    state_code={estateItem.state_code}
-                    category={estateItem.category}
-                    locality={estateItem.locality}
-                    description={estateItem.description}
-                  />
+                  <EstateCard estateData={estateItem} />
                 </Grid>
               );
             })}

@@ -1,4 +1,5 @@
 // @flow
+
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -10,7 +11,7 @@ import {
   Grid,
   Typography
 } from "@material-ui/core";
-import type { EstateCardType } from "./Types/EstateCardType";
+import type { EstateType } from "src/context/Estates/Types/Data/EstateType";
 
 const useStyles = makeStyles({
   media: {
@@ -18,16 +19,13 @@ const useStyles = makeStyles({
   }
 });
 
-export const EstateCard = ({
-  id,
-  name,
-  state_code,
-  category,
-  locality,
-  description
-}: EstateCardType) => {
-  const classes = useStyles();
+type Props = {
+  estateData: EstateType
+};
 
+export const EstateCard = ({ estateData }: Props) => {
+  const classes = useStyles();
+  const { id, name, state_code, category, locality, description } = estateData;
   return (
     <Card key={id} data-test-id={id} className={classes.root}>
       <CardMedia

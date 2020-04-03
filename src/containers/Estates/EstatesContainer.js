@@ -5,6 +5,7 @@ import { Backdrop, CircularProgress } from "@material-ui/core";
 import { EstateCards } from "src/components/Estates";
 import { makeStyles } from "@material-ui/core/styles";
 import { EstatesContext } from "src/context/Estates";
+import { getEstatesArrayFromEstatesData } from "src/helpers/Estates";
 
 const useStyles = makeStyles(theme => ({
   backdrop: {
@@ -16,6 +17,7 @@ const useStyles = makeStyles(theme => ({
 export const EstatesContainer = () => {
   const classes = useStyles();
   const { list, listData, fetchEstates, fetch } = useContext(EstatesContext);
+  const estatesData = getEstatesArrayFromEstatesData(listData);
 
   // load data for the first time only (no paging for now)
   useEffect(() => {
@@ -27,7 +29,7 @@ export const EstatesContainer = () => {
 
   const renderList = () => {
     return list ? (
-      <EstateCards id="EstateListing" list={Object.values(listData)} />
+      <EstateCards id="EstateListing" list={estatesData} />
     ) : (
       <Fragment />
     );

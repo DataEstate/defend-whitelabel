@@ -1,6 +1,6 @@
 // @flow
 
-import type { EstateType } from "src/context/Estates/Types/Data/Estatetype";
+import type { EstateType } from "src/context/Estates/Types/Data/EstateType";
 import type { EstatesType } from "src/context/Estates/Types/Data/EstatesType";
 
 type GetEstatesArrayFromEstatesData = (

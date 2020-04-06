@@ -1,6 +1,7 @@
 // @flow
 
 import React, { useContext, useEffect, Fragment } from "react";
+import { useLocation, useHistory } from 'react-router-dom';
 import { Backdrop, Button, CircularProgress } from "@material-ui/core";
 import { EstateCards } from "src/components/Estates";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,28 +15,42 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const convertUrlParams = (urlParams) => {
+  return JSON.parse('{"' + decodeURI(urlParams).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+}
+
 export const EstatesContainer = () => {
   const classes = useStyles();
+  const location = useLocation();
+  const history = useHistory();
+
   const { list, listData, fetchEstates, fetch } = useContext(EstatesContext);
   const estatesData = getEstatesArrayFromEstatesData(listData);
 
   // load data for the first time only (no paging for now)
   useEffect(() => {
     if (fetch) {
-      // check if fetch.params is empty object then load default parameters
-      if (Object.keys(fetch.params).length === 0) {
+      // check if params is empty then load default parameters
+      if (location.search === "") {
         fetchEstates({
           size: 12,
           fields: "id,name,category_code,description,locality,state_code"
         });
       } else {
-        fetchEstates(fetch.params);
+        fetchEstates(convertUrlParams(location.search.substring(1)));
       }
     }
   }, []);
 
   // when user click search, it will contain the query parameters as well
   const handleClickSearch = () => {
+    // change url params
+    history.push({
+      pathname: '/listview',
+      search: '?size=5&category_code=ACCOMM'
+    });
+
+    // fetch also!
     fetchEstates({
       size: 5,
       category_code: "ACCOMM"

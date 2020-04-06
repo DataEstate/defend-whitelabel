@@ -16,7 +16,16 @@ export const EstatesState = (state: EstatesContextStateType, action: any) => {
       return {
         ...state,
         fetch: {
+          ...state.fetch,
           isFetching: action.isFetching
+        }
+      };
+    case "SET_QUERY_PARAMS":
+      return {
+        ...state,
+        fetch: {
+          ...state.fetch,
+          params: action.params
         }
       };
     default:

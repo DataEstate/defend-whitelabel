@@ -1,7 +1,7 @@
 // @flow
 
 import React, { useContext, useEffect, Fragment } from "react";
-import { Backdrop, CircularProgress } from "@material-ui/core";
+import { Backdrop, Button, CircularProgress } from "@material-ui/core";
 import { EstateCards } from "src/components/Estates";
 import { makeStyles } from "@material-ui/core/styles";
 import { EstatesContext } from "src/context/Estates";
@@ -21,11 +21,26 @@ export const EstatesContainer = () => {
 
   // load data for the first time only (no paging for now)
   useEffect(() => {
-    fetchEstates({
-      size: 12,
-      fields: "id,name,category_code,description,locality,state_code"
-    });
+    if (fetch) {
+      // check if fetch.params is empty object then load default parameters
+      if (Object.keys(fetch.params).length === 0) {
+        fetchEstates({
+          size: 12,
+          fields: "id,name,category_code,description,locality,state_code"
+        });
+      } else {
+        fetchEstates(fetch.params);
+      }
+    }
   }, []);
+
+  // when user click search, it will contain the query parameters as well
+  const handleClickSearch = () => {
+    fetchEstates({
+      size: 5,
+      category_code: "ACCOMM"
+    });
+  }
 
   const renderList = () => {
     return list ? (
@@ -37,6 +52,9 @@ export const EstatesContainer = () => {
 
   return (
     <Fragment>
+      <Button variant="contained" color="primary" onClick={handleClickSearch}>
+        Imitate Search with Parameter
+      </Button>
       <Backdrop className={classes.backdrop} open={Boolean(fetch.isFetching)}>
         <CircularProgress />
       </Backdrop>

@@ -6,7 +6,10 @@ import type { EstatesContextType } from "./Types/EstatesContextType";
 export const EstatesContext = createContext<EstatesContextType>({
   list: [],
   listData: {},
-  fetch: { isFetching: false },
+  fetch: { 
+    isFetching: false,
+    params: {}
+  },
   fetchEstates: null,
   dispatch: null
 });

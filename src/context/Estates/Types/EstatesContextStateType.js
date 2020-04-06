@@ -6,6 +6,7 @@ export type EstatesContextStateType = {
   list: string[],
   listData: EstatesType,
   fetch: {
-    isFetching: boolean
+    isFetching: boolean,
+    params: {}
   }
 };

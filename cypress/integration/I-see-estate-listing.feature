@@ -23,3 +23,9 @@ Feature: Estate listing responsiveness
     Given I navigate to the "Home" screen
     When I choose to go to the "ListView"
     Then I see that there are listings from API
+
+  @i-see-estate-listing
+  Scenario: I navigate to list view with query parameters
+    Given I navigate to the "Home" screen
+    When I choose to go to "ListView" screen with query parameters "size=5&state=NSW"
+    Then I see that there are "5" listings from API

@@ -13,6 +13,11 @@ Given(/I choose to go to the "([^"]*)"/, linkName => {
     .click();
 });
 
+Given(/I choose to go to "([^"]*)" screen with query parameters "([^"]*)"/, (screen, queryParams) => {
+  cy.visit(`/${screen}?${queryParams}`);
+  cy.wait(500);
+});
+
 Given(/I see that I have navigated to the "([^"]*)"/, screen => {
   cy.get(`#${screen}Screen`).should("exist");
 });

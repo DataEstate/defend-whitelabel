@@ -74,3 +74,13 @@ Given(/I see that there are listings from API/, () => {
       expect(listing).to.have.length(listingCount);
     });
 });
+
+Given(/I see that there are "([^"]*)" listings from API/, totalData => {
+  // get EstateCards
+  cy.get(`#EstateListing`).should("exist");
+
+  // we assume the first call of the API return 12 data
+  cy.get('#EstateListing')
+    .find('[data-test-id*="estate-item"]')
+    .should('have.length', totalData);
+});

@@ -28,13 +28,6 @@ export const EstateCard = ({ estateData }: Props) => {
   const { id, name, state_code, category, locality, description } = estateData;
   return (
     <Card key={id} data-test-id={id} className={classes.root}>
-      <CardMedia
-        component={"img"}
-        className={classes.media}
-        image="https://source.unsplash.com/random"
-        title={name}
-        alt={name}
-      />
       <CardContent className={classes.cardContent} key={id}>
         <Typography gutterBottom variant="h5" component="h2">
           {name}
@@ -48,9 +41,7 @@ export const EstateCard = ({ estateData }: Props) => {
         <Typography variant="body2" color="textSecondary" component="p">
           {locality}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {description}
-        </Typography>
+        <div dangerouslySetInnerHTML={{__html: description}} />
       </CardContent>
       <CardActions>
         <Grid container justify="space-evenly" alignItems="center">

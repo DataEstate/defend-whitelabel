@@ -4,7 +4,7 @@ import React, { useReducer, useContext } from "react";
 import superagent from "superagent";
 import { EstatesContext } from "./EstatesContext";
 import { EstatesState } from "./EstatesState";
-import { setEstatesListAction, setIsFetchingEstatesAction } from "./Actions";
+import { setEstatesListAction, setIsFetchingEstatesAction, setQueryParamsEstatesAction } from "./Actions";
 import { ConfigurationContext } from "src/context";
 
 import type { EstateType } from "./Types/Data/EstateType";
@@ -41,11 +41,15 @@ export const EstatesProvider = ({ children }: Props) => {
     list: [],
     listData: {},
     fetch: {
-      isFetching: false
+      isFetching: false,
+      params: {}
     }
   });
 
   const fetchEstates = (params?: any) => {
+    if (params) {
+      dispatch(setQueryParamsEstatesAction(params));
+    }
     dispatch(setIsFetchingEstatesAction(true));
     superagent
       .get(`${baseUrl}/estates/data`)

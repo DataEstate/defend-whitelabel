@@ -12,22 +12,41 @@ import {
   Typography
 } from "@material-ui/core";
 import type { EstateType } from "src/context/Estates/Types/Data/EstateType";
+import EstateImageContainer from "./EstateImageContainer";
+import EstateCardStatusBar from "./EstateCardStatusBar";
+import EstateCardStarRatings from "./EstateCardStarRatings";
+import EstateCardFooter from "./EstateCardFooter";
 
 const useStyles = makeStyles({
-  media: {
-    height: 140
+  cardHeight: {
+    height: props => props.height
   }
 });
 
+
 type Props = {
-  estateData: EstateType
+  estateData: EstateType,
+  height?: number
 };
 
-export const EstateCard = ({ estateData }: Props) => {
-  const classes = useStyles();
+export const EstateCard = ({ estateData, ...props }: Props) => {
+  const classes = useStyles(props);
   const { id, name, state_code, category, locality, description } = estateData;
+
+  const handleClickReadMore = () => {
+    alert('read more!');
+  }
+
+  const handleClickBookNow = () => {
+    alert('book now!');
+  }
+  
   return (
-    <Card key={id} data-test-id={id} className={classes.root}>
+    <Card key={id} data-test-id={id} className={classes.cardHeight}>
+      <EstateImageContainer />
+      <EstateCardStatusBar>
+        <EstateCardStarRatings rating={3.5} />
+      </EstateCardStatusBar>
       <CardContent className={classes.cardContent} key={id}>
         <Typography gutterBottom variant="h5" component="h2">
           {name}
@@ -43,28 +62,10 @@ export const EstateCard = ({ estateData }: Props) => {
         </Typography>
         <div dangerouslySetInnerHTML={{__html: description}} />
       </CardContent>
-      <CardActions>
-        <Grid container justify="space-evenly" alignItems="center">
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.estateButton}
-            >
-              Read More
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.estateButton}
-            >
-              Book Direct
-            </Button>
-          </Grid>
-        </Grid>
-      </CardActions>
+      <EstateCardFooter 
+        onReadMore={handleClickReadMore}
+        onBookNow={handleClickBookNow}
+      />
     </Card>
   );
 };

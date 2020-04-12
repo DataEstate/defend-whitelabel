@@ -7,8 +7,6 @@ import {
   Button,
   Grid
 } from "@material-ui/core";
-import type { EstateType } from "src/context/Estates/Types/Data/EstateType";
-import EstateImageContainer from "./EstateImageContainer";
 
 const useStyles = makeStyles({
   buttonSection: {
@@ -38,7 +36,7 @@ export const EstateCardFooter = ({ onReadMore, onBookNow }: Props) => {
   
   return (
     <CardActions>
-      <Grid container justify="flex-start" alignItems="center" spacing={2}>
+      <Grid container justify="flex-start" alignItems="flex-end" spacing={2}>
         <div className={classes.buttonSection}>
           <Button
             variant="contained"

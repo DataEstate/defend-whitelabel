@@ -3,23 +3,19 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
-  Grid,
-  Typography
+  Card
 } from "@material-ui/core";
 import type { EstateType } from "src/context/Estates/Types/Data/EstateType";
 import EstateImageContainer from "./EstateImageContainer";
+import EstateCardContent from "./EstateCardContent";
 import EstateCardStatusBar from "./EstateCardStatusBar";
 import EstateCardStarRatings from "./EstateCardStarRatings";
 import EstateCardFooter from "./EstateCardFooter";
 
 const useStyles = makeStyles({
-  cardHeight: {
-    height: props => props.height
+  cardRoot: {
+    height: props => props.height,
+    borderRadius: 0
   }
 });
 
@@ -31,7 +27,17 @@ type Props = {
 
 export const EstateCard = ({ estateData, ...props }: Props) => {
   const classes = useStyles(props);
-  const { id, name, state_code, category, locality, description } = estateData;
+  const { 
+    id, 
+    name, 
+    state_code, 
+    category, 
+    locality, 
+    description,
+    star_rating,
+    latest_date,
+    rate_from
+  } = estateData;
 
   const handleClickReadMore = () => {
     alert('read more!');
@@ -42,26 +48,19 @@ export const EstateCard = ({ estateData, ...props }: Props) => {
   }
   
   return (
-    <Card key={id} data-test-id={id} className={classes.cardHeight}>
+    <Card key={id} data-test-id={id} className={classes.cardRoot}>
       <EstateImageContainer />
       <EstateCardStatusBar>
         <EstateCardStarRatings rating={3.5} />
       </EstateCardStatusBar>
-      <CardContent className={classes.cardContent} key={id}>
-        <Typography gutterBottom variant="h5" component="h2">
-          {name}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {state_code}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {category}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {locality}
-        </Typography>
-        <div dangerouslySetInnerHTML={{__html: description}} />
-      </CardContent>
+      <EstateCardContent
+        id={id}
+        subheading={`${category} ${locality ? ` | ${locality}` : ""}`}
+        heading={name}
+        infoBlock={(latest_date || rate_from) ? (rate_from ? `$${rate_from}` : (latest_date ? latest_date : "")) : ""}
+        description={description}
+        extra={'something extra'}
+      />
       <EstateCardFooter 
         onReadMore={handleClickReadMore}
         onBookNow={handleClickBookNow}

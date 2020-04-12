@@ -29,7 +29,7 @@ export const EstatesContainer = () => {
       if (location.search === "") {
         fetchEstates({
           size: 12,
-          fields: "id,name,category_code,description,locality,state_code"
+          fields: "id,name,category_code,description,locality,state_code,star_rating,latest_date,rate_from"
         });
       } else {
         fetchEstates(getQueryParams(location.search.substring(1)));

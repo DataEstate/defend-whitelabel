@@ -8,7 +8,7 @@ import {
 
 const useStyles = makeStyles({
   media: {
-    height: 140
+    height: 215 // is this fixed height or not?
   }
 });
 

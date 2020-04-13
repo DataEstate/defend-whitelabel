@@ -2,26 +2,25 @@
 
 import * as React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     float: "right",
     position: "relative",
     right: 6.61,
     textAlign: "right"
   },
-
   title: {
-    fontFamily: "Poppins",
+    ...theme.typography.h2,
     fontSize: 6,
-    fontWeight: "bold",
-    color: "#ffffff",
+    color: "white",
     textTransform: "uppercase",
   },
   starSection: {
-    color: "#ffffff", // remove later
+    color: "white", // remove later
   }
-});
+}));
 
 type Props = {
   rating: number
@@ -32,8 +31,8 @@ export const EstateCardStarRatings = ({ rating }: Props) => {
   
   return (
     <div className={classes.root}>
-      <div className={classes.title}>Star Rating</div>
-      <div className={classes.starSection}>*****</div>
+      <Typography variant={"h2"} className={classes.title}>Star Rating</Typography>
+      <Typography variant={"h6"} className={classes.starSection}>*****</Typography>
     </div>
   );
 };

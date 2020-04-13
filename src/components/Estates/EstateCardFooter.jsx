@@ -8,7 +8,7 @@ import {
   Grid
 } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   buttonSection: {
     marginLeft: 16
   },
@@ -19,12 +19,11 @@ const useStyles = makeStyles({
     borderRadius: 0
   },
   estateButtonLabel: {
-    fontFamily: "Poppins",
-    fontWeight: 500,
+    ...theme.typography.h3,
     fontSize: 8,
     textTransform: "capitalize"
   }
-});
+}));
 
 type Props = {
   onReadMore?: any,

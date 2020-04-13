@@ -34,6 +34,18 @@ const typography = {
   h6: {
     fontFamily: primaryFontFamily,
   },
+  subHeading: {
+    fontFamily: secondaryFontFamily,
+    fontWeight: 700,
+  },
+  infoBlock: {
+    fontFamily: secondaryFontFamily,
+    fontWeight: 400,
+  },
+  description: {
+    fontFamily: secondaryFontFamily,
+    fontWeight: 400,
+  },
 };
 
 const colors = {
@@ -42,6 +54,7 @@ const colors = {
   darkNavy: "#003d68",
   chalkGrey: "#e6e6e6",
   undergroundRed: "ef3f3d",
+  darkGrey: "#484848"
 };
 
 const palette = {
@@ -54,6 +67,7 @@ const palette = {
 
 export const theme = {
   typography,
+  colors,
   palette,
 };
 

@@ -3,13 +3,13 @@
 import * as React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#0061A1",
+    backgroundColor: theme.colors.dataEstateBlue,
     padding: 9,
     height: 38
   },
-});
+}));
 
 type Props = {
   children?: React.Node

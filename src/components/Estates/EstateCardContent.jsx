@@ -2,40 +2,40 @@
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { CardContent, Grid, pxToRem } from "@material-ui/core";
+import { CardContent, Grid, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   subheading: {
+    ...theme.typography.subHeading,
     marginTop: -4,
     fontSize: 8,
-    fontWeight: "bold",
-    color: "#0061A1",
+    color: theme.colors.dataEstateBlue,
     textTransform: "uppercase",
   },
   heading: {
-    ...theme.typography.h4,
-    fontWeight: "bold",
-    fontSize: "16px",
-    color: "#000000",
+    ...theme.typography.h2,
+    fontSize: 16,
+    color: "black",
     textTransform: "capitalize",
   },
   infoBlock: {
     textAlign: "right",
   },
   infoBlockSmall: {
-    fontFamily: "Poppins",
+    ...theme.typography.infoBlock,
     fontSize: 8,
-    color: "#484848",
+    color: theme.colors.darkGrey,
   },
   infoBlockLarge: {
-    fontFamily: "Poppins",
+    ...theme.typography.infoBlock,
     fontSize: 14,
-    color: "#484848",
+    color: theme.colors.darkGrey,
   },
   description: {
-    fontFamily: "Barlow",
+    ...theme.typography.description,
     fontSize: 12,
-    color: "#000000",
+    color: "black",
+    marginTop: 5,
   },
 }));
 
@@ -60,16 +60,16 @@ export const EstateCardContent = ({
 
   return (
     <CardContent className={classes.cardContent} key={id}>
-      <div className={classes.subheading}>{subheading}</div>
+      <Typography variant={"h4"} className={classes.subheading}>{subheading}</Typography>
       <Grid container>
         <Grid item xs={infoBlock && infoBlock !== "" ? 8 : 12}>
-          <div className={classes.heading}>{heading}</div>
+          <Typography variant={"h2"} className={classes.heading}>{heading}</Typography>
         </Grid>
         {infoBlock && infoBlock !== "" ? (
           <Grid item xs={4}>
             <div className={classes.infoBlock}>
-              <span className={classes.infoBlockSmall}>from </span>
-              <span className={classes.infoBlockLarge}>{infoBlock}</span>
+              <Typography variant={"h6"} className={classes.infoBlockSmall}>from </Typography>
+              <Typography variant={"h6"} className={classes.infoBlockLarge}>{infoBlock}</Typography>
             </div>
           </Grid>
         ) : null}
@@ -80,7 +80,7 @@ export const EstateCardContent = ({
           dangerouslySetInnerHTML={{ __html: description }}
         />
       )}
-      {extra && <div className={classes.description}>{extra}</div>}
+      {extra && <Typography variant={"h6"} className={classes.description}>{extra}</Typography>}
     </CardContent>
   );
 };

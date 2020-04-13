@@ -14,9 +14,14 @@ const useStyles = makeStyles((theme) => ({
   },
   heading: {
     ...theme.typography.h2,
+    marginTop: 4,
     fontSize: 16,
     color: "black",
     textTransform: "capitalize",
+    overflow: "hidden",
+    display: "-webkit-box",
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: "vertical",
   },
   infoBlock: {
     textAlign: "right",

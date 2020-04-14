@@ -2,12 +2,14 @@
   "name": "defend-whitelabel",
   "version": "0.0.1",
   "description": "Data Estate React whitelabel website",
+  "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --open --mode development",
+    "start": "npx nps local",
     "flow": "flow",
     "build": "webpack --mode production",
-    "test": "npx jest"
+    "test": "npx jest",
+    "cytest": "npx nps cytest"
   },
   "author": "",
   "license": "MIT",
@@ -27,8 +29,8 @@
     "superagent": "^5.2.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.6.2",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-flow": "^7.7.4",
     "@babel/preset-react": "^7.0.0",
@@ -40,7 +42,8 @@
     "chai-shallow-deep-equal": "^1.4.6",
     "cross-env": "^7.0.0",
     "css-loader": "^3.2.0",
-    "cypress": "^3.6.1",
+    "cypress": "^3.8.3",
+    "cypress-cucumber-preprocessor": "^2.0.1",
     "dotenv": "^8.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -50,8 +53,10 @@
     "flow-bin": "^0.112.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "jest": "^24.9.0",
+    "jest": "^25.1.0",
     "mini-css-extract-plugin": "^0.8.0",
+    "minimist": "^1.2.5",
+    "npm-run-all": "^4.1.5",
     "nps-utils": "^1.7.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "redux-logger": "^3.0.6",
@@ -67,5 +72,8 @@
     "setupFilesAfterEnv": [
       "./setupTests.js"
     ]
+  },
+  "cypress-cucumber-preprocessor": {
+    "step_definitions": "cypress/step_definitions"
   }
 }

@@ -1,26 +1,29 @@
+// @flow
 import React from "react";
-import { Typography } from "@material-ui/core";
+import classnames from "classnames";
+import { Button, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+import { EstatesContainer } from "src/containers";
+import { EstatesProvider } from "src/context/Estates";
+
+const useStyles = makeStyles((theme) => ({
   button: {
-    marginBottom: theme.spacing(1)
-  }
+    marginBottom: theme.spacing(1),
+  },
 }));
+
 export const ListView = () => {
   const classes = useStyles();
   return (
-    <div>
+    <div id="ListViewScreen">
       <Typography variant="h3">{"This is ListView page"}</Typography>
-      <Link to="/">
-        <Button
-          variant="contained"
-          color="primary"
-          href="#contained-buttons"
-          className={classes.button}
-        >
+      <EstatesProvider>
+        <EstatesContainer />
+      </EstatesProvider>
+      <Link className={classnames("Navigation__Link", "to-Home")} to="/">
+        <Button variant="contained" color="primary" className={classes.button}>
           Back to Home Page
         </Button>
       </Link>

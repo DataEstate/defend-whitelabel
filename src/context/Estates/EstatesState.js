@@ -15,7 +15,18 @@ export const EstatesState = (state: EstatesContextStateType, action: any) => {
     case "SET_IS_FETCHING":
       return {
         ...state,
-        isFetching: action.isFetching
+        fetch: {
+          ...state.fetch,
+          isFetching: action.isFetching
+        }
+      };
+    case "SET_QUERY_PARAMS":
+      return {
+        ...state,
+        fetch: {
+          ...state.fetch,
+          params: action.params
+        }
       };
     default:
       // Or should we throw an error

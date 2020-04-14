@@ -17,7 +17,7 @@ type Props = {
   title?: string
 };
 
-export const EstateImageContainer = ({ url, title }: Props) => {
+export const EstateCardImageContainer = ({ url, title }: Props) => {
   const classes = useStyles();
 
   return (
@@ -33,4 +33,4 @@ export const EstateImageContainer = ({ url, title }: Props) => {
   );
 };
 
-export default EstateImageContainer;
+export default EstateCardImageContainer;

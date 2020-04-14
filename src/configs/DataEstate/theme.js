@@ -34,18 +34,6 @@ const typography = {
   h6: {
     fontFamily: primaryFontFamily,
   },
-  subHeading: {
-    fontFamily: secondaryFontFamily,
-    fontWeight: 700,
-  },
-  infoBlock: {
-    fontFamily: secondaryFontFamily,
-    fontWeight: 400,
-  },
-  description: {
-    fontFamily: secondaryFontFamily,
-    fontWeight: 400,
-  },
 };
 
 const colors = {

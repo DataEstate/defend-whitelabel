@@ -6,11 +6,13 @@ import {
   Card
 } from "@material-ui/core";
 import type { EstateType } from "src/context/Estates/Types/Data/EstateType";
-import EstateImageContainer from "./EstateImageContainer";
-import EstateCardContent from "./EstateCardContent";
-import EstateCardStatusBar from "./EstateCardStatusBar";
-import EstateCardStarRatings from "./EstateCardStarRatings";
-import EstateCardFooter from "./EstateCardFooter";
+import { 
+  EstateCardImageContainer,
+  EstateCardContent,
+  EstateCardStatusBar,
+  EstateCardStarRatings,
+  EstateCardFooter
+} from "src/components/Estates";
 
 const useStyles = makeStyles({
   cardRoot: {
@@ -25,8 +27,8 @@ type Props = {
   height?: number
 };
 
-export const EstateCard = ({ estateData, ...props }: Props) => {
-  const classes = useStyles(props);
+export const EstateCard = ({ estateData, height = 500, ...props }: Props) => {
+  const classes = useStyles({...props, height});
   const { 
     id, 
     name, 
@@ -49,7 +51,7 @@ export const EstateCard = ({ estateData, ...props }: Props) => {
   
   return (
     <Card key={id} data-test-id={id} className={classes.cardRoot}>
-      <EstateImageContainer />
+      <EstateCardImageContainer />
       <EstateCardStatusBar>
         <EstateCardStarRatings rating={3.5} />
       </EstateCardStatusBar>

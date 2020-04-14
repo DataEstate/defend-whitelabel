@@ -6,7 +6,8 @@ import { CardContent, Grid, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   subheading: {
-    ...theme.typography.subHeading,
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: 700,
     marginTop: -4,
     fontSize: 8,
     color: theme.colors.dataEstateBlue,
@@ -27,17 +28,20 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "right",
   },
   infoBlockSmall: {
-    ...theme.typography.infoBlock,
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: 400,
     fontSize: 8,
     color: theme.colors.darkGrey,
   },
   infoBlockLarge: {
-    ...theme.typography.infoBlock,
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: 400,
     fontSize: 14,
     color: theme.colors.darkGrey,
   },
   description: {
-    ...theme.typography.description,
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: 400,
     fontSize: 12,
     color: "black",
     marginTop: 5,

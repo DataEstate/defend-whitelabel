@@ -28,7 +28,7 @@ export const EstateCards = ({ id, list }: Props) => {
                   xl={3}
                   key={estateItem.id}
                 >
-                  <EstateCard estateData={estateItem} height={550} />
+                  <EstateCard estateData={estateItem} />
                 </Grid>
               );
             })}

@@ -38,7 +38,8 @@ export const EstateCard = ({ estateData, height = 500, ...props }: Props) => {
     description,
     star_rating,
     latest_date,
-    rate_from
+    rate_from,
+    hero_image,
   } = estateData;
 
   const handleClickReadMore = () => {
@@ -51,7 +52,7 @@ export const EstateCard = ({ estateData, height = 500, ...props }: Props) => {
   
   return (
     <Card key={id} data-test-id={id} className={classes.cardRoot}>
-      <EstateCardImageContainer />
+      <EstateCardImageContainer url={hero_image ? hero_image.path : ""} title={name} />
       <EstateCardStatusBar>
         <EstateCardStarRatings rating={3.5} />
       </EstateCardStatusBar>
@@ -61,7 +62,6 @@ export const EstateCard = ({ estateData, height = 500, ...props }: Props) => {
         heading={name}
         infoBlock={(latest_date || rate_from) ? (rate_from ? `$${rate_from}` : (latest_date ? latest_date : "")) : ""}
         description={description}
-        extra={'something extra'}
       />
       <EstateCardFooter 
         onReadMore={handleClickReadMore}

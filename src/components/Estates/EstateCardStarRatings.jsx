@@ -14,11 +14,14 @@ const useStyles = makeStyles((theme) => ({
   title: {
     ...theme.typography.h2,
     fontSize: 6,
+    marginTop: 9,
     color: "white",
     textTransform: "uppercase",
   },
   starSection: {
     color: "white", // remove later
+    marginTop: -5,
+    marginBottom: 11,
   }
 }));
 

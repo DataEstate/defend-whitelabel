@@ -45,6 +45,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     color: "black",
     marginTop: 5,
+    overflow: "hidden",
+    display: "-webkit-box",
+    WebkitLineClamp: 7,
+    WebkitBoxOrient: "vertical",
   },
 }));
 

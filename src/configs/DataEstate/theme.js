@@ -42,7 +42,8 @@ const colors = {
   darkNavy: "#003d68",
   chalkGrey: "#e6e6e6",
   undergroundRed: "ef3f3d",
-  darkGrey: "#484848"
+  darkGrey: "#484848",
+  lightGrey: "#dcdcdc",
 };
 
 const palette = {

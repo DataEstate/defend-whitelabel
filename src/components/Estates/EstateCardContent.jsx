@@ -24,21 +24,6 @@ const useStyles = makeStyles((theme) => ({
     WebkitLineClamp: 2,
     WebkitBoxOrient: "vertical",
   },
-  infoBlock: {
-    textAlign: "right",
-  },
-  infoBlockSmall: {
-    fontFamily: theme.typography.fontFamily,
-    fontWeight: 400,
-    fontSize: 8,
-    color: theme.palette.grey[800],
-  },
-  infoBlockLarge: {
-    fontFamily: theme.typography.fontFamily,
-    fontWeight: 400,
-    fontSize: 14,
-    color: theme.palette.grey[800],
-  },
   description: {
     fontFamily: theme.typography.fontFamily,
     fontWeight: 400,
@@ -56,7 +41,7 @@ type Props = {
   id?: string,
   subheading: string,
   heading: string,
-  infoBlock?: any,
+  infoBlock?: React.Node,
   description?: string,
   extra?: React.Node,
 };
@@ -70,23 +55,15 @@ export const EstateCardContent = ({
   extra,
 }: Props) => {
   const classes = useStyles();
-  const hasInfoBlock = (infoBlock && infoBlock !== "");
 
   return (
     <CardContent className={classes.cardContent} key={id}>
       <Typography variant={"h4"} className={classes.subheading}>{subheading}</Typography>
       <Grid container>
-        <Grid item xs={hasInfoBlock ? 8 : 12}>
+        <Grid item xs={infoBlock ? 8 : 12}>
           <Typography variant={"h2"} className={classes.heading}>{heading}</Typography>
         </Grid>
-        {hasInfoBlock ? (
-          <Grid item xs={4}>
-            <div className={classes.infoBlock}>
-              <Typography variant={"h6"} className={classes.infoBlockSmall}>from </Typography>
-              <Typography variant={"h6"} className={classes.infoBlockLarge}>{infoBlock}</Typography>
-            </div>
-          </Grid>
-        ) : null}
+        {infoBlock && {infoBlock}}
       </Grid>
       {description && (
         <div

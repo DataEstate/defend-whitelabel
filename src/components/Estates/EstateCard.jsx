@@ -3,7 +3,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  Card
+  Card,
+  Grid,
+  Typography,
 } from "@material-ui/core";
 import type { EstateType } from "src/context/Estates/Types/Data/EstateType";
 import { 
@@ -14,20 +16,34 @@ import {
   EstateCardFooter
 } from "src/components/Estates";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   cardRoot: {
     height: props => props.height,
     borderRadius: 0
-  }
-});
-
+  },
+  infoBlock: {
+    textAlign: "right",
+  },
+  infoBlockSmall: {
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: 400,
+    fontSize: 8,
+    color: theme.palette.grey[800],
+  },
+  infoBlockLarge: {
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: 400,
+    fontSize: 14,
+    color: theme.palette.grey[800],
+  },
+}));
 
 type Props = {
   estateData: EstateType,
   height?: string
 };
 
-export const EstateCard = ({ estateData, height = '700px', ...props }: Props) => {
+export const EstateCard = ({ estateData, height = "700px" }: Props) => {
   const classes = useStyles({ height });
   const { 
     id, 
@@ -41,6 +57,27 @@ export const EstateCard = ({ estateData, height = '700px', ...props }: Props) =>
     rate_from,
     hero_image,
   } = estateData;
+
+  const getSubHeading = () => {
+    return `${category} ${locality ? ` | ${locality}` : ""}`;
+  }
+
+  const getInfoBlock = () => {
+    if (rate_from || latest_date) { 
+      const mainText = rate_from 
+        ? `$${rate_From}`
+        : latest_date; 
+      const subText = "from";
+      return (
+        <Grid item xs={4}>
+          <div className={classes.infoBlock}>
+            <Typography variant={"h6"} className={classes.infoBlockSmall}>{subText} </Typography>
+            <Typography variant={"h6"} className={classes.infoBlockLarge}>{mainText}</Typography>
+          </div>
+        </Grid>
+      );
+    }
+  }
 
   const handleClickReadMore = () => {
     alert('read more!');
@@ -58,9 +95,9 @@ export const EstateCard = ({ estateData, height = '700px', ...props }: Props) =>
       </EstateCardStatusBar>
       <EstateCardContent
         id={id}
-        subheading={`${category} ${locality ? ` | ${locality}` : ""}`}
+        subheading={getSubHeading()}
         heading={name}
-        infoBlock={(latest_date || rate_from) ? (rate_from ? `$${rate_from}` : (latest_date ? latest_date : "")) : ""}
+        infoBlock={getInfoBlock()}
         description={description}
       />
       <EstateCardFooter 

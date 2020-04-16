@@ -7,6 +7,7 @@ import {
   CardMedia,
   Grid,
 } from "@material-ui/core";
+import { EmptyImagePlaceholder } from "src/components/Common";
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -36,19 +37,7 @@ export const EstateCardImageContainer = ({ url, title }: Props) => {
             alt={title}
           />
         :
-          <div className={classes.media}>
-            <Grid
-              container
-              spacing={0}
-              alignItems="center"
-              justify="center"
-              direction="column"
-            >
-              <Grid item>
-                <PhotoIcon />
-              </Grid>
-            </Grid>
-          </div>
+          <EmptyImagePlaceholder height={'215px'}/>
       }
     </React.Fragment>
   );

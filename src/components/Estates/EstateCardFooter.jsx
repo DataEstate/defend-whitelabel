@@ -25,12 +25,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+type EstateCardActionType = {
+  name?: string, 
+  color?: "primary" | "secondary" | string,
+  onClick?: (e: any) => void,
+  disabled?: boolean
+}
+
 type Props = {
-  onReadMore?: any,
-  onBookNow?: any
+  primaryAction: EstateCardActionType,
+  secondaryAction: EstateCardActionType,
+  buttons?: Array<EstateCardActionType>,
 };
 
-export const EstateCardFooter = ({ onReadMore, onBookNow }: Props) => {
+export const EstateCardFooter = ({ primaryAction, secondaryAction, buttons }: Props) => {
   const classes = useStyles();
   
   return (
@@ -39,26 +47,46 @@ export const EstateCardFooter = ({ onReadMore, onBookNow }: Props) => {
         <div className={classes.buttonSection}>
           <Button
             variant="contained"
-            color="primary"
+            color={primaryAction.color}
             classes={{
               root: classes.estateButton,
               label: classes.estateButtonLabel
             }}
-            onClick={onReadMore}
+            onClick={primaryAction.onClick}
+            disabled={primaryAction.disabled}
           >
-            Read More
+            {primaryAction.name}
           </Button>
           <Button
             variant="contained"
-            color="primary"
+            color={secondaryAction.color}
             classes={{
               root: classes.estateButton,
               label: classes.estateButtonLabel
             }}
-            onClick={onBookNow}
+            onClick={secondaryAction.onClick}
+            disabled={secondaryAction.disabled}
           >
-            Book Direct
+            {secondaryAction.name}
           </Button>
+          {buttons && 
+            buttons.map((button, index) => {
+              return (
+                <Button
+                  variant="contained"
+                  color={button.color}
+                  classes={{
+                    root: classes.estateButton,
+                    label: classes.estateButtonLabel
+                  }}
+                  onClick={button.onClick}
+                  disabled={button.disabled}
+                >
+                  {button.name}
+                </Button>
+              );
+            })
+          }
         </div>
       </Grid>
     </CardActions>

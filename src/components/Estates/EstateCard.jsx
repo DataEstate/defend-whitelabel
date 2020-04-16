@@ -24,11 +24,11 @@ const useStyles = makeStyles({
 
 type Props = {
   estateData: EstateType,
-  height?: number
+  height?: string
 };
 
-export const EstateCard = ({ estateData, height = 500, ...props }: Props) => {
-  const classes = useStyles({...props, height});
+export const EstateCard = ({ estateData, height = '700px', ...props }: Props) => {
+  const classes = useStyles({ height });
   const { 
     id, 
     name, 
@@ -54,7 +54,7 @@ export const EstateCard = ({ estateData, height = 500, ...props }: Props) => {
     <Card key={id} data-test-id={id} className={classes.cardRoot}>
       <EstateCardImageContainer url={hero_image ? hero_image.path : ""} title={name} />
       <EstateCardStatusBar>
-        <EstateCardStarRatings rating={3.5} />
+        {star_rating && <EstateCardStarRatings rating={star_rating} />}
       </EstateCardStatusBar>
       <EstateCardContent
         id={id}
@@ -64,8 +64,16 @@ export const EstateCard = ({ estateData, height = 500, ...props }: Props) => {
         description={description}
       />
       <EstateCardFooter 
-        onReadMore={handleClickReadMore}
-        onBookNow={handleClickBookNow}
+        primaryAction={{
+          name: "Read More",
+          color: "primary",
+          onClick: () => handleClickReadMore()
+        }}
+        secondaryAction={{
+          name: "Book Now",
+          color: "primary",
+          onClick: () => handleClickBookNow()
+        }}
       />
     </Card>
   );

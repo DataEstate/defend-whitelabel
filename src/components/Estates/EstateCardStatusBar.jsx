@@ -5,8 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.colors.dataEstateBlue,
-    padding: 9,
+    backgroundColor: theme.palette.primary.main,
+    padding: theme.spacing(1),
     height: 38
   },
 }));
@@ -15,12 +15,12 @@ type Props = {
   children?: React.Node
 };
 
-export const EstateCardStatusBar = (props: Props) => {
+export const EstateCardStatusBar = ({ children }: Props) => {
   const classes = useStyles();
   
   return (
     <div className={classes.root}>
-      {props.children}
+      {children}
     </div>
   );
 };

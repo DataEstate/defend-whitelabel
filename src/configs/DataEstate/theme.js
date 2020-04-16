@@ -52,11 +52,14 @@ const palette = {
     dark: colors.dataEstateBlue,
     light: colors.skyBlue,
   },
+  grey: {
+    '400': colors.lightGrey,
+    '800': colors.darkGrey
+  }
 };
 
 export const theme = {
   typography,
-  colors,
   palette,
 };
 

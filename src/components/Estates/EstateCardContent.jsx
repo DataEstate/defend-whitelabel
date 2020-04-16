@@ -1,6 +1,6 @@
 // @flow
 
-import React from "react";
+import * as React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { CardContent, Grid, Typography } from "@material-ui/core";
 
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     marginTop: -4,
     fontSize: 8,
-    color: theme.colors.dataEstateBlue,
+    color: theme.palette.primary.main,
     textTransform: "uppercase",
   },
   heading: {
@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: theme.typography.fontFamily,
     fontWeight: 400,
     fontSize: 8,
-    color: theme.colors.darkGrey,
+    color: theme.palette.grey[800],
   },
   infoBlockLarge: {
     fontFamily: theme.typography.fontFamily,
     fontWeight: 400,
     fontSize: 14,
-    color: theme.colors.darkGrey,
+    color: theme.palette.grey[800],
   },
   description: {
     fontFamily: theme.typography.fontFamily,
@@ -56,9 +56,9 @@ type Props = {
   id?: string,
   subheading: string,
   heading: string,
-  infoBlock?: string,
+  infoBlock?: any,
   description?: string,
-  extra?: string,
+  extra?: React.Node,
 };
 
 export const EstateCardContent = ({
@@ -70,15 +70,16 @@ export const EstateCardContent = ({
   extra,
 }: Props) => {
   const classes = useStyles();
+  const hasInfoBlock = (infoBlock && infoBlock !== "");
 
   return (
     <CardContent className={classes.cardContent} key={id}>
       <Typography variant={"h4"} className={classes.subheading}>{subheading}</Typography>
       <Grid container>
-        <Grid item xs={infoBlock && infoBlock !== "" ? 8 : 12}>
+        <Grid item xs={hasInfoBlock ? 8 : 12}>
           <Typography variant={"h2"} className={classes.heading}>{heading}</Typography>
         </Grid>
-        {infoBlock && infoBlock !== "" ? (
+        {hasInfoBlock ? (
           <Grid item xs={4}>
             <div className={classes.infoBlock}>
               <Typography variant={"h6"} className={classes.infoBlockSmall}>from </Typography>
@@ -93,7 +94,7 @@ export const EstateCardContent = ({
           dangerouslySetInnerHTML={{ __html: description }}
         />
       )}
-      {extra && <Typography variant={"h6"} className={classes.description}>{extra}</Typography>}
+      {extra && {extra}}
     </CardContent>
   );
 };

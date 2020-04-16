@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 215, // is this fixed height or not?
     display: "flex",
-    backgroundColor: theme.colors.lightGrey
+    backgroundColor: theme.palette.grey[400],
   },
 }));
 

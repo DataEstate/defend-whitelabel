@@ -65,7 +65,7 @@ export const EstateCard = ({ estateData, height = "700px" }: Props) => {
   const getInfoBlock = () => {
     if (rate_from || latest_date) { 
       const mainText = rate_from 
-        ? `$${rate_From}`
+        ? `$${rate_from}`
         : latest_date; 
       const subText = "from";
       return (

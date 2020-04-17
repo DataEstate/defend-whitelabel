@@ -13,7 +13,7 @@ type Props = {
 export const EstateCards = ({ id, list }: Props) => {
   return (
     <div id={id}>
-      <Container>
+      <Container maxWidth={"xl"}>
         <Grid container spacing={3}>
           {list &&
             list.map((estateItem, index) => {
@@ -28,7 +28,7 @@ export const EstateCards = ({ id, list }: Props) => {
                   xl={3}
                   key={estateItem.id}
                 >
-                  <EstateCard estateData={estateItem} />
+                  <EstateCard estateData={estateItem} height={"500px"} />
                 </Grid>
               );
             })}

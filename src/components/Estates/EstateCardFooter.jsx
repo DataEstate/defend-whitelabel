@@ -9,8 +9,15 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    height: "55px",
+    width: "100%",
+    backgroundColor: "white",
+    position: "absolute",
+    bottom: 0,
+  },
   buttonSection: {
-    marginLeft: 16
+    marginLeft: 16,
   },
   estateButton: {
     marginRight: 20,
@@ -42,7 +49,7 @@ export const EstateCardFooter = ({ primaryAction, secondaryAction, buttons }: Pr
   const classes = useStyles();
   
   return (
-    <CardActions>
+    <CardActions className={classes.root}>
       <Grid container justify="flex-start" alignItems="flex-end" spacing={2}>
         <div className={classes.buttonSection}>
           <Button

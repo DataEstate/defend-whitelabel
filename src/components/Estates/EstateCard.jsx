@@ -18,8 +18,10 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   cardRoot: {
+    minHeight: props => props.height,
     height: props => props.height,
-    borderRadius: 0
+    borderRadius: 0,
+    position: "relative",
   },
   infoBlock: {
     textAlign: "right",

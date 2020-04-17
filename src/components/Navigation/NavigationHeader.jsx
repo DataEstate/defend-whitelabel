@@ -30,7 +30,7 @@ export const NavigationHeader = ({ title = "", children }: Props) => {
         <Typography variant="h2" className={classes.title}>
           {title}
         </Typography>
-        <div className={classnames("Navigation--MenuItems", classes.menuItems)}>
+        <div className={classnames("Navigation__menuItems", classes.menuItems)}>
           {children}
         </div>
       </Toolbar>

@@ -94,30 +94,39 @@ export const NavigationItem: NavigationItemType = ({
       <MenuItem
         key={idx}
         onClick={() => handleMenuLinkClick(subMenuItem.to)}
-        className={classnames(
-          "NavigationItem__subMenu--list",
-          classes.subItemsList
-        )}
+        className={classnames("SubmenuItem__list", classes.subItemsList)}
+        data-link-name={subMenuItem.name}
       >
         {subMenuItem.name}
       </MenuItem>
     ));
   return (
     <ClickAwayListener onClickAway={handleMenuClose}>
-      <div className={classes.navItem}>
+      <div
+        className={classnames(
+          "Navigation__menuItem",
+          "MenuItem",
+          classes.navItem
+        )}
+      >
         <button
-          className={classnames(classes.navItemLink, {
+          className={classnames("MenuItem__button", classes.navItemLink, {
             [classes.navItemLinkWithSubmenu]: hasSubmenu,
           })}
           onClick={() => handleMenuLinkClick(to)}
           onMouseOver={handleMenuOpen}
+          data-link-name={name}
         >
           <Typography variant="inherit">{name}</Typography>
           {hasSubmenu && <ArrowDropDown className={classes.navItemArrow} />}
         </button>
         {hasSubmenu && showSubmenu && (
           <div
-            className={classnames("NavigationItem__subMenu", classes.subItems)}
+            className={classnames(
+              "MenuItem__submenuItem",
+              "SubmenuItem",
+              classes.subItems
+            )}
           >
             {renderSubmenus()}
           </div>

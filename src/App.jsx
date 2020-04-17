@@ -67,7 +67,7 @@ export const App = ({ id }: AppProps) => {
         <Route path="/" exact>
           <Home />
         </Route>
-        <Route path="/listview" exact>
+        <Route path="/list" exact>
           <ListView />
         </Route>
         <SampleContainer></SampleContainer>

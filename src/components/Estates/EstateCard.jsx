@@ -73,8 +73,8 @@ export const EstateCard = ({ estateData, height = "700px" }: Props) => {
       return (
         <Grid item xs={4}>
           <div className={classes.infoBlock}>
-            <Typography variant={"h6"} className={classes.infoBlockSmall}>{subText} </Typography>
-            <Typography variant={"h6"} className={classes.infoBlockLarge}>{mainText}</Typography>
+            <Typography variant={"caption"} className={classes.infoBlockSmall}>{subText} </Typography>
+            <Typography variant={"caption"} className={classes.infoBlockLarge}>{mainText}</Typography>
           </div>
         </Grid>
       );

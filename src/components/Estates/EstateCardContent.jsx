@@ -63,7 +63,7 @@ export const EstateCardContent = ({
         <Grid item xs={infoBlock ? 8 : 12}>
           <Typography variant={"h2"} className={classes.heading}>{heading}</Typography>
         </Grid>
-        {infoBlock && {infoBlock}}
+        {infoBlock && infoBlock}
       </Grid>
       {description && (
         <div
@@ -71,7 +71,7 @@ export const EstateCardContent = ({
           dangerouslySetInnerHTML={{ __html: description }}
         />
       )}
-      {extra && {extra}}
+      {extra && extra}
     </CardContent>
   );
 };

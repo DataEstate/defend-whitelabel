@@ -80,6 +80,7 @@ export const EstateCardFooter = ({ primaryAction, secondaryAction, buttons }: Pr
             buttons.map((button, index) => {
               return (
                 <Button
+                  key={`extra-button-${index}`}
                   variant="contained"
                   color={button.color}
                   classes={{

@@ -6,7 +6,8 @@ import type { AppStateContextType } from "./Types/AppStateContextType";
 
 export const AppStateContext = createContext<AppStateContextType>({
   navBarOpen: false,
-  dispatch: action => {}
+  device: "desktop",
+  dispatch: (action) => {},
 });
 
 export default AppStateContext;

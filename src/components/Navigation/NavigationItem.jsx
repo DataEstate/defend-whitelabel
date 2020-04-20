@@ -14,13 +14,11 @@ import { useHistory } from "react-router-dom";
 import type { NavigationItemType } from "./Types/NavigationItemType";
 
 const useStyles = makeStyles((theme, prop) => ({
-  navItem: ({ height }) => ({
+  navItem: {
     color: "#030303",
-    minHeight: height,
     display: "flex",
-  }),
+  },
   navItemLink: {
-    color: "white",
     fontWeight: "600",
     textDecoration: "none",
     textTransform: "uppercase",
@@ -62,10 +60,12 @@ const useStyles = makeStyles((theme, prop) => ({
 export const NavigationItem: NavigationItemType = ({
   name,
   to,
-  height = 64,
   submenu = [],
+  height = 0,
+  onClick = (e) => {},
+  className,
 }) => {
-  const classes = useStyles({ height });
+  const classes = useStyles();
   const history = useHistory();
   const hasSubmenu = submenu.length > 0;
   const [showSubmenu, setShowSubmenu] = useState(false);
@@ -73,8 +73,9 @@ export const NavigationItem: NavigationItemType = ({
   const handleMenuLinkClick = (to) => {
     if (to) {
       history.push(to);
+      setShowSubmenu(false);
     }
-    setShowSubmenu(false);
+    onClick();
   };
 
   const handleMenuOpen = (e) => {
@@ -110,9 +111,14 @@ export const NavigationItem: NavigationItemType = ({
         )}
       >
         <button
-          className={classnames("MenuItem__button", classes.navItemLink, {
-            [classes.navItemLinkWithSubmenu]: hasSubmenu,
-          })}
+          className={classnames(
+            "MenuItem__button",
+            classes.navItemLink,
+            className,
+            {
+              [classes.navItemLinkWithSubmenu]: hasSubmenu,
+            }
+          )}
           onClick={() => handleMenuLinkClick(to)}
           onMouseOver={handleMenuOpen}
           data-link-name={name}

@@ -45,6 +45,22 @@ export const useStyles = makeStyles((theme) => ({
           color: theme.palette.common.white,
           minHeight: theme.spacing(8),
         },
+  menuItemArrow: ({ isMobile }) =>
+    isMobile
+      ? {
+          color: theme.palette.common.black,
+        }
+      : {
+          color: theme.palette.common.white,
+        },
+  menuSubmenu: ({ isMobile }) =>
+    isMobile
+      ? {
+          boxShadow: "none",
+          background: "rgba(0,0,0,0.08)",
+          width: "100%",
+        }
+      : {},
   menuButton: {
     margin: 0,
     padding: `0 ${theme.spacing(1)}px 0 0`,
@@ -73,14 +89,22 @@ export const NavigationHeader = ({
   const navigationItems =
     menuItems &&
     menuItems.map((item, idx) => {
-      console.log(item);
       return (
         <NavigationItem
           key={idx}
           to={item.to}
           name={item.name}
           submenu={item.submenu}
-          className={classes.menuItem}
+          classes={{
+            navItemLink: classes.menuItem,
+            navItemArrow: classes.menuItemArrow,
+            submenuItems: classes.menuSubmenu,
+          }}
+          onClick={(e, to, parent) => {
+            if (to) {
+              toggleMenuButtonClick(false);
+            }
+          }}
         />
       );
     });

@@ -5,6 +5,4 @@ export type NavigationItemDataType = {
   name: string,
   height?: string,
   submenu?: Array<NavigationItemDataType>,
-  onClick?: (e: any) => {},
-  className?: string,
 };

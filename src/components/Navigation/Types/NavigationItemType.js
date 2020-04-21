@@ -9,6 +9,7 @@ export type NavigationItemClassesType = {
   navItemLink?: {},
   navItemArrow?: {},
   submenuItems?: {},
+  submenuItemsList?: {},
 };
 export type NavigationItemProps = {
   ...NavigationItemDataType,

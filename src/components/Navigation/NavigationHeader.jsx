@@ -19,7 +19,6 @@ import type { NavigationItemDataType } from "./Types/NavigationItemDataType";
 
 type Props = {
   title?: string,
-  children?: React.Node,
   menuItems?: NavigationItemDataType[],
 };
 
@@ -61,6 +60,9 @@ export const useStyles = makeStyles((theme) => ({
           width: "100%",
         }
       : {},
+  menuSubmenuList: {
+    paddingLeft: theme.spacing(3),
+  },
   menuButton: {
     margin: 0,
     padding: `0 ${theme.spacing(1)}px 0 0`,
@@ -73,11 +75,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const NavigationHeader = ({
-  title = "",
-  children,
-  menuItems,
-}: Props) => {
+export const NavigationHeader = ({ title = "", menuItems }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles({ isMobile });
@@ -99,6 +97,7 @@ export const NavigationHeader = ({
             navItemLink: classes.menuItem,
             navItemArrow: classes.menuItemArrow,
             submenuItems: classes.menuSubmenu,
+            submenuItemsList: classes.menuSubmenuList,
           }}
           onClick={(e, to, parent) => {
             if (to) {
@@ -110,7 +109,7 @@ export const NavigationHeader = ({
     });
 
   return (
-    <AppBar color="primary" position="static">
+    <AppBar className="Navigation" color="primary" position="static">
       <Toolbar>
         {isMobile && (
           <div className={classnames("Navigation__mobileMenu")}>
@@ -132,7 +131,10 @@ export const NavigationHeader = ({
             </Drawer>
           </div>
         )}
-        <Typography variant="h2" className={classes.title}>
+        <Typography
+          variant="h2"
+          className={classnames("Navigation__title", classes.title)}
+        >
           {title}
         </Typography>
         {!isMobile && (

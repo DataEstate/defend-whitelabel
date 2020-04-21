@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme, props) => ({
     display: "flex",
     position: "relative",
   },
-  navItemLink: ({ classes }) => ({
+  navItemLink: {
     fontWeight: "600",
     textDecoration: "none",
     textTransform: "uppercase",
@@ -37,22 +37,19 @@ const useStyles = makeStyles((theme, props) => ({
       cursor: "pointer",
       opacity: 0.8,
     },
-    ...(classes?.navItemLink || {}),
-  }),
+  },
   navItemLinkWithSubmenu: {
     padding: `0px 0px 0px ${theme.spacing(2)}px`,
   },
-  navItemArrow: ({ classes }) => ({
+  navItemArrow: {
     color: theme.palette.common.white,
-    ...(classes?.navItemArrow || {}),
-  }),
-  submenuItems: ({ anchorEl, classes }) => ({
+  },
+  submenuItems: ({ anchorEl }) => ({
     padding: `${theme.spacing(1)}px 0px`,
     position: "absolute",
     background: "white",
     top: anchorEl?.current?.offsetHeight || "0px",
     boxShadow: theme.shadows[2],
-    ...(classes?.submenuItems || {}),
   }),
   submenuItemsList: {
     listStyle: "none",
@@ -65,29 +62,28 @@ export const NavigationItem: NavigationItemType = ({
   name,
   to,
   submenu = [],
-  height = "0px",
   onClick = (e, to, navItem) => {},
   classes,
 }) => {
   const anchorEl = useRef(null);
-  const internalClasses = useStyles({ anchorEl, classes });
+  const internalClasses = useStyles({ anchorEl });
   const history = useHistory();
   const hasSubmenu = submenu.length > 0;
   const [showSubmenu, setShowSubmenu] = useState(false);
 
   const handleMenuLinkClick = (
     event,
-    to,
+    linkTo,
     elementHasSubmenu = false,
     parent = null
   ) => {
     if (elementHasSubmenu) {
       setShowSubmenu(!showSubmenu);
-    } else if (to) {
-      history.push(to);
+    } else if (linkTo) {
+      history.push(linkTo);
       setShowSubmenu(false);
     }
-    onClick(event, to, parent);
+    onClick(event, linkTo, parent);
   };
 
   const handleMenuOpen = (e) => {
@@ -115,14 +111,15 @@ export const NavigationItem: NavigationItemType = ({
               to,
               name,
               submenu,
-              height,
             }
           )
         }
         className={classnames(
           "SubmenuItem__list",
-          internalClasses.submenuItemsList
+          internalClasses.submenuItemsList,
+          classes?.submenuItemsList
         )}
+        data-link-to={subMenuItem.to}
         data-link-name={subMenuItem.name}
       >
         {subMenuItem.name}
@@ -134,7 +131,8 @@ export const NavigationItem: NavigationItemType = ({
         className={classnames(
           "Navigation__menuItem",
           "MenuItem",
-          internalClasses.navItem
+          internalClasses.navItem,
+          classes?.navItem
         )}
       >
         <button
@@ -144,14 +142,22 @@ export const NavigationItem: NavigationItemType = ({
             internalClasses.navItemLink,
             {
               [internalClasses.navItemLinkWithSubmenu]: hasSubmenu,
-            }
+            },
+            classes?.navItemLink
           )}
           onClick={(e) => handleMenuLinkClick(e, to, hasSubmenu)}
+          data-link-to={to}
           data-link-name={name}
         >
           <Typography variant="inherit">{name}</Typography>
           {hasSubmenu && (
-            <ArrowDropDown className={internalClasses.navItemArrow} />
+            <ArrowDropDown
+              className={classnames(
+                "MenuItem__arrowIcon",
+                internalClasses.navItemArrow,
+                classes?.navItemArrow
+              )}
+            />
           )}
         </button>
         {hasSubmenu && showSubmenu && (

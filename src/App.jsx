@@ -74,7 +74,6 @@ export const App = ({ id }: AppProps) => {
         <Route path="/list" exact>
           <ListView />
         </Route>
-        <SampleContainer></SampleContainer>
       </div>
     </BrowserRouter>
   );

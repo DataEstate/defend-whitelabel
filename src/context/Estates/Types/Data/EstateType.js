@@ -39,6 +39,9 @@ export type EstateType = {
   update_date: string,
   hero_image?: ImageType,
   images?: Array<ImageType>,
+  star_rating?: number,
+  latest_date?: string,
+  rate_from?: number,
   addresses?: {
     PHYSICAL: {
       street_address: string,

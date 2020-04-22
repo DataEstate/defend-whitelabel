@@ -4,35 +4,36 @@ const primaryFontFamily = [
   "Poppins",
   "Helvetica Neue",
   "Arial",
-  "sans-serif"
+  "sans-serif",
 ].join(",");
 
 const secondaryFontFamily = `"Barlow", "Roboto", "Arial", sans-serif`;
 
 const typography = {
   fontFamily: secondaryFontFamily,
+  headingFontFamily: primaryFontFamily,
   h1: {
     fontFamily: primaryFontFamily,
-    fontWeight: 700
+    fontWeight: 700,
   },
   h2: {
     fontFamily: primaryFontFamily,
-    fontWeight: 700
+    fontWeight: 700,
   },
   h3: {
     fontFamily: primaryFontFamily,
-    fontWeight: 500
+    fontWeight: 500,
   },
   h4: {
     fontFamily: primaryFontFamily,
-    fontWeight: 600
+    fontWeight: 600,
   },
   h5: {
-    fontFamily: primaryFontFamily
+    fontFamily: primaryFontFamily,
   },
   h6: {
-    fontFamily: primaryFontFamily
-  }
+    fontFamily: primaryFontFamily,
+  },
 };
 
 const colors = {
@@ -40,20 +41,26 @@ const colors = {
   skyBlue: "#53b7e8",
   darkNavy: "#003d68",
   chalkGrey: "#e6e6e6",
-  undergroundRed: "ef3f3d"
+  undergroundRed: "ef3f3d",
+  darkGrey: "#484848",
+  lightGrey: "#dcdcdc",
 };
 
 const palette = {
   primary: {
     main: colors.dataEstateBlue,
     dark: colors.dataEstateBlue,
-    light: colors.skyBlue
+    light: colors.skyBlue,
+  },
+  grey: {
+    '400': colors.lightGrey,
+    '800': colors.darkGrey
   }
 };
 
 export const theme = {
   typography,
-  palette
+  palette,
 };
 
 export default theme;

@@ -2,69 +2,118 @@
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
-  Grid,
-  Typography
-} from "@material-ui/core";
+import { Card, Grid, Typography } from "@material-ui/core";
 import type { EstateType } from "src/context/Estates/Types/Data/EstateType";
+import {
+  EstateCardImageContainer,
+  EstateCardContent,
+  EstateCardStatusBar,
+  EstateCardStarRatings,
+  EstateCardFooter,
+} from "src/components/Estates";
 
-const useStyles = makeStyles({
-  media: {
-    height: 140
-  }
-});
+const useStyles = makeStyles((theme) => ({
+  cardRoot: {
+    minHeight: (props) => props.height,
+    height: (props) => props.height,
+    borderRadius: 0,
+    position: "relative",
+  },
+  infoBlock: {
+    textAlign: "right",
+  },
+  infoBlockSmall: {
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: 400,
+    fontSize: 8,
+    color: theme.palette.grey[800],
+  },
+  infoBlockLarge: {
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: 400,
+    fontSize: 14,
+    color: theme.palette.grey[800],
+  },
+}));
 
 type Props = {
-  estateData: EstateType
+  estateData: EstateType,
+  height?: string,
 };
 
-export const EstateCard = ({ estateData }: Props) => {
-  const classes = useStyles();
-  const { id, name, state_code, category, locality, description } = estateData;
-  return (
-    <Card key={id} data-test-id={id} className={classes.root}>
-      <CardContent className={classes.cardContent} key={id}>
-        <Typography gutterBottom variant="h5" component="h2">
-          {name}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {state_code}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {category}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {locality}
-        </Typography>
-        <div dangerouslySetInnerHTML={{__html: description}} />
-      </CardContent>
-      <CardActions>
-        <Grid container justify="space-evenly" alignItems="center">
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.estateButton}
-            >
-              Read More
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.estateButton}
-            >
-              Book Direct
-            </Button>
-          </Grid>
+export const EstateCard = ({ estateData, height = "700px" }: Props) => {
+  const classes = useStyles({ height });
+  const {
+    id,
+    name,
+    state_code,
+    category,
+    locality,
+    description,
+    star_rating,
+    latest_date,
+    rate_from,
+    hero_image,
+  } = estateData;
+
+  const getSubHeading = () => {
+    return `${category} ${locality ? ` | ${locality}` : ""}`;
+  };
+
+  const getInfoBlock = () => {
+    if (rate_from || latest_date) {
+      const mainText = rate_from ? `$${rate_from}` : latest_date;
+      const subText = "from";
+      return (
+        <Grid item xs={4}>
+          <div className={classes.infoBlock}>
+            <Typography variant={"caption"} className={classes.infoBlockSmall}>
+              {subText}{" "}
+            </Typography>
+            <Typography variant={"caption"} className={classes.infoBlockLarge}>
+              {mainText}
+            </Typography>
+          </div>
         </Grid>
-      </CardActions>
+      );
+    }
+  };
+
+  const handleClickReadMore = () => {
+    alert("read more!");
+  };
+
+  const handleClickBookNow = () => {
+    alert("book now!");
+  };
+  return (
+    <Card key={id} data-test-id={id} className={classes.cardRoot}>
+      <EstateCardImageContainer
+        url={hero_image ? hero_image.path : ""}
+        title={name}
+      />
+      <EstateCardStatusBar>
+        {star_rating && <EstateCardStarRatings rating={star_rating} />}
+      </EstateCardStatusBar>
+      <EstateCardContent
+        id={id}
+        subheading={getSubHeading()}
+        heading={name}
+        infoBlock={getInfoBlock()}
+        description={description}
+      />
+      <EstateCardFooter
+        primaryAction={{
+          name: "Read More",
+          color: "primary",
+          onClick: () => handleClickReadMore(),
+        }}
+        secondaryAction={{
+          name: "Book Now",
+          color: "primary",
+          onClick: () => handleClickBookNow(),
+        }}
+      />
     </Card>
   );
 };

@@ -31,6 +31,9 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => {
   return {
+    main: {
+      fontFamily: theme.typography.fontFamily,
+    },
     drawer: {
       width: drawerWidth,
       flexShrink: 0,

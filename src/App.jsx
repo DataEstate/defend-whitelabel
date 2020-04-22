@@ -6,7 +6,7 @@
  * @author Rolf Chen <rolf.chen@dataestate.com.au>
  */
 
-import React, { useContext } from "react";
+import React, { useContext, Fragment } from "react";
 import classnames from "classnames";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
@@ -21,6 +21,8 @@ import { ConfigurationContext } from "src/context";
 import { SampleContainer } from "src/containers";
 import { Home } from "./screens/Home";
 import { ListView } from "./screens/ListView";
+import { NavigationHeader, NavigationItem } from "src/components";
+
 type AppProps = {
   id?: string,
 };
@@ -47,13 +49,34 @@ export const App = ({ id }: AppProps) => {
   const classes = useStyles();
 
   const { site } = useContext(ConfigurationContext);
+
+  const menuData = [
+    {
+      to: "/",
+      name: "Home",
+    },
+    {
+      name: "Estates",
+      submenu: [
+        {
+          to: "/list",
+          name: "List",
+        },
+      ],
+    },
+  ];
+
   return (
     <BrowserRouter>
-      <div className={classnames("MainApp", classes.main)}>
-        <Typography variant="h2">{site.title}</Typography>
-        <Route path="/" exact component={Home}></Route>
-        <Route path="/listview" exact component={ListView}></Route>
-        <SampleContainer></SampleContainer>
+      <div className="test-app">
+        <CssBaseline />
+        <NavigationHeader title={site.title} menuItems={menuData} />
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/list" exact>
+          <ListView />
+        </Route>
       </div>
     </BrowserRouter>
   );

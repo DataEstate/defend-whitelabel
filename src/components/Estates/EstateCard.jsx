@@ -43,7 +43,6 @@ type Props = {
 
 export const EstateCard = ({ estateData, height = "700px" }: Props) => {
   const classes = useStyles({ height });
-  console.log(estateData);
   const {
     id,
     name,

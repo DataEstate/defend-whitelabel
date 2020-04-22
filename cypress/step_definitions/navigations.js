@@ -7,8 +7,14 @@ Given(/I navigate to the "([^"]*)" screen/, (screen) => {
   cy.wait(500);
 });
 
-Given(/I choose to go to the "([^"]*)"/, (linkName) => {
-  cy.get(".MainApp").find(`.Navigation__Link.to-${linkName}`).click();
+Given(/I choose to go to "([^"]*)"/, (linkName) => {
+  cy.get(".test-app").find(`.MenuItem [data-link-name=${linkName}]`).click();
+});
+
+Given(/I hover over "([^"]*)" menu/, (linkName) => {
+  cy.get(".test-app")
+    .find(`.MenuItem [data-link-name=${linkName}]`)
+    .trigger("mouseover");
 });
 
 Given(

@@ -2,11 +2,7 @@
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  CardActions,
-  Button,
-  Grid
-} from "@material-ui/core";
+import { CardActions, Button, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,28 +12,21 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     bottom: 0,
   },
-  buttonSection: {
+  actionsContainer: {
     marginLeft: 16,
   },
   estateButton: {
-    marginRight: 20,
-    width: 78,
-    height: 28,
-    borderRadius: 0
+    marginRight: theme.spacing(1),
+    borderRadius: 0,
   },
-  estateButtonLabel: {
-    ...theme.typography.h3,
-    fontSize: 8,
-    textTransform: "capitalize"
-  }
 }));
 
 type EstateCardActionType = {
-  name?: string, 
+  name?: string,
   color?: "primary" | "secondary" | string,
   onClick?: (e: any) => void,
-  disabled?: boolean
-}
+  disabled?: boolean,
+};
 
 type Props = {
   primaryAction: EstateCardActionType,
@@ -45,19 +34,23 @@ type Props = {
   buttons?: Array<EstateCardActionType>,
 };
 
-export const EstateCardFooter = ({ primaryAction, secondaryAction, buttons }: Props) => {
+export const EstateCardFooter = ({
+  primaryAction,
+  secondaryAction,
+  buttons,
+}: Props) => {
   const classes = useStyles();
-  
+
   return (
     <CardActions className={classes.root}>
       <Grid container justify="flex-start" alignItems="flex-end" spacing={2}>
-        <div className={classes.buttonSection}>
+        <div className={classes.actionsContainer}>
           <Button
             variant="contained"
             color={primaryAction.color}
             classes={{
               root: classes.estateButton,
-              label: classes.estateButtonLabel
+              label: classes.estateButtonLabel,
             }}
             onClick={primaryAction.onClick}
             disabled={primaryAction.disabled}
@@ -69,14 +62,14 @@ export const EstateCardFooter = ({ primaryAction, secondaryAction, buttons }: Pr
             color={secondaryAction.color}
             classes={{
               root: classes.estateButton,
-              label: classes.estateButtonLabel
+              label: classes.estateButtonLabel,
             }}
             onClick={secondaryAction.onClick}
             disabled={secondaryAction.disabled}
           >
             {secondaryAction.name}
           </Button>
-          {buttons && 
+          {buttons &&
             buttons.map((button, index) => {
               return (
                 <Button
@@ -85,7 +78,7 @@ export const EstateCardFooter = ({ primaryAction, secondaryAction, buttons }: Pr
                   color={button.color}
                   classes={{
                     root: classes.estateButton,
-                    label: classes.estateButtonLabel
+                    label: classes.estateButtonLabel,
                   }}
                   onClick={button.onClick}
                   disabled={button.disabled}
@@ -93,8 +86,7 @@ export const EstateCardFooter = ({ primaryAction, secondaryAction, buttons }: Pr
                   {button.name}
                 </Button>
               );
-            })
-          }
+            })}
         </div>
       </Grid>
     </CardActions>

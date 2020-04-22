@@ -1,18 +1,21 @@
 // @flow
 
 import React, { useContext, useEffect, Fragment } from "react";
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from "react-router-dom";
 import { Backdrop, CircularProgress } from "@material-ui/core";
 import { EstateCards } from "src/components/Estates";
 import { makeStyles } from "@material-ui/core/styles";
 import { EstatesContext } from "src/context/Estates";
-import { getEstatesArrayFromEstatesData, getQueryParams } from "src/helpers/Estates";
+import {
+  getEstatesArrayFromEstatesData,
+  getQueryParams,
+} from "src/helpers/Estates";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
-    color: "#fff"
-  }
+    color: "#fff",
+  },
 }));
 
 export const EstatesContainer = () => {
@@ -29,7 +32,10 @@ export const EstatesContainer = () => {
       if (location.search === "") {
         fetchEstates({
           size: 12,
-          fields: "id,name,category,category_code,description,locality,state_code,star_rating,latest_date,rate_from,hero_image"
+          fields:
+            "id,name,category,category_code,description,locality,state_code,star_rating,latest_date,rate_from,hero_image",
+          categories: "ACCOMM,ATTRACTION,EVENT,TOUR",
+          star_rated: "true",
         });
       } else {
         fetchEstates(getQueryParams(location.search.substring(1)));

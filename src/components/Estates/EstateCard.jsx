@@ -2,24 +2,20 @@
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Card,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { Card, Grid, Typography } from "@material-ui/core";
 import type { EstateType } from "src/context/Estates/Types/Data/EstateType";
-import { 
+import {
   EstateCardImageContainer,
   EstateCardContent,
   EstateCardStatusBar,
   EstateCardStarRatings,
-  EstateCardFooter
+  EstateCardFooter,
 } from "src/components/Estates";
 
 const useStyles = makeStyles((theme) => ({
   cardRoot: {
-    minHeight: props => props.height,
-    height: props => props.height,
+    minHeight: (props) => props.height,
+    height: (props) => props.height,
     borderRadius: 0,
     position: "relative",
   },
@@ -42,17 +38,18 @@ const useStyles = makeStyles((theme) => ({
 
 type Props = {
   estateData: EstateType,
-  height?: string
+  height?: string,
 };
 
 export const EstateCard = ({ estateData, height = "700px" }: Props) => {
   const classes = useStyles({ height });
-  const { 
-    id, 
-    name, 
-    state_code, 
-    category, 
-    locality, 
+  console.log(estateData);
+  const {
+    id,
+    name,
+    state_code,
+    category,
+    locality,
     description,
     star_rating,
     latest_date,
@@ -62,36 +59,40 @@ export const EstateCard = ({ estateData, height = "700px" }: Props) => {
 
   const getSubHeading = () => {
     return `${category} ${locality ? ` | ${locality}` : ""}`;
-  }
+  };
 
   const getInfoBlock = () => {
-    if (rate_from || latest_date) { 
-      const mainText = rate_from 
-        ? `$${rate_from}`
-        : latest_date; 
+    if (rate_from || latest_date) {
+      const mainText = rate_from ? `$${rate_from}` : latest_date;
       const subText = "from";
       return (
         <Grid item xs={4}>
           <div className={classes.infoBlock}>
-            <Typography variant={"caption"} className={classes.infoBlockSmall}>{subText} </Typography>
-            <Typography variant={"caption"} className={classes.infoBlockLarge}>{mainText}</Typography>
+            <Typography variant={"caption"} className={classes.infoBlockSmall}>
+              {subText}{" "}
+            </Typography>
+            <Typography variant={"caption"} className={classes.infoBlockLarge}>
+              {mainText}
+            </Typography>
           </div>
         </Grid>
       );
     }
-  }
+  };
 
   const handleClickReadMore = () => {
-    alert('read more!');
-  }
+    alert("read more!");
+  };
 
   const handleClickBookNow = () => {
-    alert('book now!');
-  }
-  
+    alert("book now!");
+  };
   return (
     <Card key={id} data-test-id={id} className={classes.cardRoot}>
-      <EstateCardImageContainer url={hero_image ? hero_image.path : ""} title={name} />
+      <EstateCardImageContainer
+        url={hero_image ? hero_image.path : ""}
+        title={name}
+      />
       <EstateCardStatusBar>
         {star_rating && <EstateCardStarRatings rating={star_rating} />}
       </EstateCardStatusBar>
@@ -102,16 +103,16 @@ export const EstateCard = ({ estateData, height = "700px" }: Props) => {
         infoBlock={getInfoBlock()}
         description={description}
       />
-      <EstateCardFooter 
+      <EstateCardFooter
         primaryAction={{
           name: "Read More",
           color: "primary",
-          onClick: () => handleClickReadMore()
+          onClick: () => handleClickReadMore(),
         }}
         secondaryAction={{
           name: "Book Now",
           color: "primary",
-          onClick: () => handleClickBookNow()
+          onClick: () => handleClickBookNow(),
         }}
       />
     </Card>

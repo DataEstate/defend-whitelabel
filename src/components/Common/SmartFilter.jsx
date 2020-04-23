@@ -6,6 +6,7 @@ import {
   MenuItem,
   TextField,
 } from "@material-ui/core";
+import type { OptionValueType } from "./Types/OptionValueType";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,11 +15,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-type FilterOption = {
-  label: string,
-  value: any,
-};
-
 type Props = {
   label: string,
   value?: any,
@@ -26,10 +22,10 @@ type Props = {
   placeholder?: string,
   variant?: "filled" | "outlined" | string,
   type: "text" | "number" | "select",
-  options?: Array<FilterOption>,
+  options?: Array<OptionValueType>,
   multiple?: boolean,
   onChange?: (e: {
-    value: FilterOption | string,
+    value: OptionValueType | string,
     name: string
   }) => void,
   classes?: string,
@@ -54,10 +50,30 @@ export const SmartFilter = ({
   const [internalValue, setInternalValue] = useState(multiple ? [] : "");
   const styleClass = classes ? classes : useStyles();
 
-  const handleChange = (event) => {
-    onChange(event.target.value);
+  const handleChange = (filterValue, name) => {
+    let sendValues;
+
+    if (type === "select") {
+      if (multiple) {
+        // create an array of values if multiple
+        sendValues = [];
+        for (let i = 0, l = filterValue.length; i < l; i += 1) {
+          sendValues.push(options.find(item => item.value === filterValue[i]));
+        }
+      } else {
+        // if not, just pass one object
+        sendValues = filterValue;
+      }
+    } else {
+      // for the rest, just pass one object
+      sendValues = filterValue;
+    }
+
+    // send the object upfront
+    onChange({ value: sendValues, name });
+    // if uncontrolled, then set local state
     if (!value) {
-      setInternalValue(event.target.value);
+      setInternalValue(filterValue);
     }
   }
 
@@ -74,7 +90,7 @@ export const SmartFilter = ({
         // for select type, placeholder are not exist, so we use helperText instead
         helperText={type === "select" && placeholder}
         variant={variant}
-        onChange={handleChange}
+        onChange={(e) => handleChange(e.target.value, name)}
         disabled={disabled}
         SelectProps={
           type === "select" ?

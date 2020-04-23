@@ -33,29 +33,28 @@ export const Home = () => {
         label="Smart Filter"
         placeholder="Make your selection"
         type="text"
-        value={filter1}
-        onChange={(x) => setfilter1(x)}
+        // value={filter1}
+        onChange={(x) => console.log(x)}
       />
-      {filter1}
 
       <SmartFilter
         name="filter2"
-        label="Smart Filter Select"
-        value={filter2}
+        label="Smart Filter"
+        // value={filter2}
         placeholder="Make your selection"
         type="select"
         options={options}
-        onChange={(x) => setfilter2(x)}
+        onChange={(x) => console.log(x)}
       />
 
       <SmartFilter
         name="filter3"
-        label="Smart Filter Select"
-        value={filter3}
+        label="Smart Filter"
+        // value={filter3}
         placeholder="Make your selection"
         type="select"
         options={options}
-        onChange={(x) => setfilter3(x)}
+        onChange={(x) => console.log(x)}
         multiple
       />
 

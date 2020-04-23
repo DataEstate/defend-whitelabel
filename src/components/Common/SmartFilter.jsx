@@ -1,13 +1,9 @@
 // @flow
 
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  FormControl,
-  Input,
-  InputLabel,
   MenuItem,
-  Select,
   TextField,
 } from "@material-ui/core";
 
@@ -25,7 +21,7 @@ type FilterOption = {
 
 type Props = {
   label: string,
-  value: any,
+  value?: any,
   name: string,
   placeholder?: string,
   variant?: "filled" | "outlined" | string,
@@ -55,60 +51,50 @@ export const SmartFilter = ({
   renderValue,
   disabled = false
 }: Props) => {
+  const [internalValue, setInternalValue] = useState(multiple ? [] : "");
   const styleClass = classes ? classes : useStyles();
 
   const handleChange = (event) => {
     onChange(event.target.value);
+    if (!value) {
+      setInternalValue(event.target.value);
+    }
   }
 
   const getComponent = () => {
-    switch (type) {
-      case "text":
-      case "number":
-        return (
-          <TextField
-            classes={styleClass}
-            data-filter-name={name}
-            name={name}
-            label={label}
-            type={type}
-            value={value}
-            placeholder={placeholder}
-            variant={variant}
-            onChange={handleChange}
-            disabled={disabled}
-          />
-        );
-      case "select":
-        return (
-          <FormControl className={styleClass.root}>
-            <InputLabel id={`label-${name}`}>{label}</InputLabel>
-            <Select
-              labelId={`label-${name}`}
-              classes={styleClass}
-              id={`select-${name}`}
-              multiple={multiple}
-              value={value}
-              onChange={handleChange}
-              input={<Input />}
-              renderValue={renderValue}
-            >
-              {placeholder &&
-                <MenuItem value="none" disabled>
-                  {placeholder}
-                </MenuItem>}
-              {options.map((optionItem) => (
-                <MenuItem key={optionItem.value} value={optionItem.value}>
-                  {optionItem.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        );
-
-      default:
-        break;
-    }
+    return (
+      <TextField
+        classes={styleClass}
+        data-filter-name={name}
+        name={name}
+        label={label}
+        type={type}
+        value={value ? value : internalValue}
+        placeholder={placeholder}
+        // for select type, placeholder are not exist, so we use helperText instead
+        helperText={type === "select" && placeholder}
+        variant={variant}
+        onChange={handleChange}
+        disabled={disabled}
+        SelectProps={
+          type === "select" ?
+            {
+              multiple: multiple,
+              renderValue: renderValue
+            }
+            : null
+        }
+        select={type === "select"}
+      >
+        {type === "select" && options &&
+          options.map((optionItem) => (
+            <MenuItem key={optionItem.value} value={optionItem.value}>
+              {optionItem.label}
+            </MenuItem>
+          ))
+        }
+      </TextField>
+    );
   }
 
   return (

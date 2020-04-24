@@ -8,13 +8,6 @@ import {
 } from "@material-ui/core";
 import type { OptionValueType } from "./Types/OptionValueType";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-}));
-
 type Props = {
   label: string,
   value?: any,
@@ -25,7 +18,7 @@ type Props = {
   options?: Array<OptionValueType>,
   multiple?: boolean,
   onChange?: (e: {
-    value: OptionValueType | string,
+    value: OptionValueType | Array<OptionValueType> | string,
     name: string
   }) => void,
   classes?: string,
@@ -48,29 +41,26 @@ export const SmartFilter = ({
   disabled = false
 }: Props) => {
   const [internalValue, setInternalValue] = useState(multiple ? [] : "");
-  const styleClass = classes ? classes : useStyles();
 
   const handleChange = (filterValue, name) => {
-    let sendValues;
+    let sendValues = filterValue;
 
     if (type === "select") {
       if (multiple) {
         // create an array of values if multiple
         sendValues = [];
-        for (let i = 0, l = filterValue.length; i < l; i += 1) {
-          sendValues.push(options.find(item => item.value === filterValue[i]));
+        if (options) {
+          for (let i = 0, l = filterValue.length; i < l; i += 1) {
+            sendValues.push(options.find(item => item.value === filterValue[i]));
+          }
         }
-      } else {
-        // if not, just pass one object
-        sendValues = filterValue;
       }
-    } else {
-      // for the rest, just pass one object
-      sendValues = filterValue;
     }
 
     // send the object upfront
-    onChange({ value: sendValues, name });
+    if (onChange) {
+      onChange({ value: sendValues, name });
+    }
     // if uncontrolled, then set local state
     if (!value) {
       setInternalValue(filterValue);
@@ -80,7 +70,7 @@ export const SmartFilter = ({
   const getComponent = () => {
     return (
       <TextField
-        classes={styleClass}
+        classes={classes}
         data-filter-name={name}
         name={name}
         label={label}
@@ -114,7 +104,7 @@ export const SmartFilter = ({
   }
 
   return (
-    <div className={styleClass.root}>
+    <div>
       {getComponent()}
     </div>
   );

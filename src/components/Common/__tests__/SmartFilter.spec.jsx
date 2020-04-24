@@ -42,6 +42,7 @@ describe("src/components/Common/SmartFilter", () => {
       { value: "2", label: "Two" }
     ]
 
+    const mockCallback = jest.fn((x, y, z) => { });
     const mockComponent = mount(<SmartFilter
       name="test-filter"
       label="Test Filter"
@@ -49,14 +50,20 @@ describe("src/components/Common/SmartFilter", () => {
       type="select"
       value={inputValue}
       options={options}
-      onChange={(x) => inputValue = x}
+      onChange={mockCallback}
     />);
 
-    const event = { target: { name: "SmartFilter", value: "2" } };
-    mockComponent.find("SmartFilter").simulate('change', event);
-    mockComponent.update();
     expect(mockComponent.find("Select")).to.exist;
-    // console.log(mockComponent.find("SmartFilter").props());
+
+    // expect correct option items
+    expect(mockComponent.find("SmartFilter").props().options.length).to.equal(2);
+
+    // expect value onchange
+    const event = { target: { value: "2" } };
+    mockComponent.find('SmartFilter').invoke("onChange")(event);
+    expect(mockCallback.mock.calls.length).to.equal(1);
+    expect(mockCallback.mock.calls[0][0].target.value).to.equal("2");
+
   });
 
   it("can render component as single select type and uncontrolled", () => {
@@ -65,20 +72,27 @@ describe("src/components/Common/SmartFilter", () => {
       { value: "2", label: "Two" }
     ]
 
+    const mockCallback = jest.fn((x, y, z) => { });
     const mockComponent = mount(<SmartFilter
       name="test-filter"
       label="Test Filter"
       placeholder="Filter placeholder"
       type="select"
       options={options}
-      onChange={(x) => inputValue = x}
+      onChange={mockCallback}
     />);
 
-    const event = { target: { name: "SmartFilter", value: "2" } };
-    mockComponent.find("SmartFilter").simulate('change', event);
-    mockComponent.update();
     expect(mockComponent.find("Select")).to.exist;
-    // console.log(mockComponent.find("SmartFilter").props());
+
+    // expect correct option items
+    expect(mockComponent.find("SmartFilter").props().options.length).to.equal(2);
+
+    // expect value onchange
+    const event = { target: { value: "2" } };
+    mockComponent.find('SmartFilter').invoke("onChange")(event);
+    expect(mockCallback.mock.calls.length).to.equal(1);
+    expect(mockCallback.mock.calls[0][0].target.value).to.equal("2");
+
   });
 
   it("can render component as multiple select type and controlled", () => {
@@ -88,6 +102,7 @@ describe("src/components/Common/SmartFilter", () => {
       { value: "2", label: "Two" }
     ]
 
+    const mockCallback = jest.fn((x, y, z) => { });
     const mockComponent = mount(<SmartFilter
       name="test-filter"
       label="Test Filter"
@@ -95,15 +110,21 @@ describe("src/components/Common/SmartFilter", () => {
       type="select"
       value={inputValue}
       options={options}
-      onChange={(x) => inputValue = x}
+      onChange={mockCallback}
       multiple
     />);
 
-    const event = { target: { name: "SmartFilter", value: ["1", "2"] } };
-    mockComponent.find("SmartFilter").simulate('change', event);
-    mockComponent.update();
     expect(mockComponent.find("Select")).to.exist;
-    // console.log(mockComponent.find("SmartFilter").props());
+
+    // expect correct option items
+    expect(mockComponent.find("SmartFilter").props().options.length).to.equal(2);
+
+    // expect value onchange
+    const event = { target: { value: ["1", "2"] } };
+    mockComponent.find('SmartFilter').invoke("onChange")(event);
+    expect(mockCallback.mock.calls.length).to.equal(1);
+    expect(mockCallback.mock.calls[0][0].target.value.length).to.equal(2);
+
   });
 
   it("can render component as multiple select type and uncontrolled", () => {
@@ -112,20 +133,26 @@ describe("src/components/Common/SmartFilter", () => {
       { value: "2", label: "Two" }
     ]
 
+    const mockCallback = jest.fn((x, y, z) => { });
     const mockComponent = mount(<SmartFilter
       name="test-filter"
       label="Test Filter"
       placeholder="Filter placeholder"
       type="select"
       options={options}
-      onChange={(x) => inputValue = x}
+      onChange={mockCallback}
       multiple
     />);
 
-    const event = { target: { name: "SmartFilter", value: ["1", "2"] } };
-    mockComponent.find("SmartFilter").simulate('change', event);
-    mockComponent.update();
     expect(mockComponent.find("Select")).to.exist;
-    // console.log(mockComponent.find("SmartFilter").props());
+
+    // expect correct option items
+    expect(mockComponent.find("SmartFilter").props().options.length).to.equal(2);
+
+    // expect value onchange
+    const event = { target: { value: ["1", "2"] } };
+    mockComponent.find('SmartFilter').invoke("onChange")(event);
+    expect(mockCallback.mock.calls.length).to.equal(1);
+    expect(mockCallback.mock.calls[0][0].target.value.length).to.equal(2);
   });
 });

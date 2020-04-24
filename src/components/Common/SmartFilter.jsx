@@ -1,7 +1,6 @@
 // @flow
 
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   MenuItem,
   TextField,
@@ -17,10 +16,10 @@ type Props = {
   type: "text" | "number" | "select",
   options?: Array<OptionValueType>,
   multiple?: boolean,
-  onChange?: (e: {
-    value: OptionValueType | Array<OptionValueType> | string,
+  onChange?: (
+    value: string | OptionValueType | Array<OptionValueType>,
     name: string
-  }) => void,
+  ) => void,
   classes?: string,
   renderValue?: (e: any) => string,
   disabled?: boolean
@@ -48,18 +47,17 @@ export const SmartFilter = ({
     if (type === "select") {
       if (multiple) {
         // create an array of values if multiple
-        sendValues = [];
+        sendValues = Array<OptionValueType>(filterValue.length);
         if (options) {
           for (let i = 0, l = filterValue.length; i < l; i += 1) {
-            sendValues.push(options.find(item => item.value === filterValue[i]));
+            sendValues[i] = options.find(item => item.value === filterValue[i]);
           }
         }
       }
     }
 
-    // send the object upfront
     if (onChange) {
-      onChange({ value: sendValues, name });
+      onChange(sendValues, name);
     }
     // if uncontrolled, then set local state
     if (!value) {

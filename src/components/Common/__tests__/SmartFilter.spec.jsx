@@ -17,7 +17,7 @@ describe("src/components/Common/SmartFilter", () => {
     />);
 
     mockComponent.find("input").simulate('change', { target: { value: 'new value' } });
-    expect(inputValue.value).to.equal("new value");
+    expect(inputValue).to.equal("new value");
   });
 
   it("can render component as non select type and uncontrolled", () => {
@@ -32,7 +32,7 @@ describe("src/components/Common/SmartFilter", () => {
     />);
 
     mockComponent.find("input").simulate('change', { target: { value: 'new value' } });
-    expect(inputValue.value).to.equal("new value");
+    expect(inputValue).to.equal("new value");
   });
 
   it("can render component as single select type and controlled", () => {

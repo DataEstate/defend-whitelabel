@@ -8,7 +8,7 @@ import {
 import type { OptionValueType } from "./Types/OptionValueType";
 
 type Props = {
-  label: string,
+  label?: string,
   value?: any,
   name: string,
   placeholder?: string,
@@ -21,7 +21,7 @@ type Props = {
     name: string
   ) => void,
   classes?: string,
-  renderValue?: (e: any) => string,
+  renderValue?: () => {} | string,
   disabled?: boolean
 };
 
@@ -37,7 +37,7 @@ export const SmartFilter = ({
   onChange,
   classes,
   renderValue,
-  disabled = false
+  disabled = false,
 }: Props) => {
   const [internalValue, setInternalValue] = useState(multiple ? [] : "");
 
@@ -68,7 +68,7 @@ export const SmartFilter = ({
   const getComponent = () => {
     return (
       <TextField
-        classes={classes}
+        className={classes}
         data-filter-name={name}
         name={name}
         label={label}
@@ -76,7 +76,7 @@ export const SmartFilter = ({
         value={value ? value : internalValue}
         placeholder={placeholder}
         // for select type, placeholder are not exist, so we use helperText instead
-        helperText={type === "select" && placeholder}
+        // helperText={type === "select" && placeholder}
         variant={variant}
         onChange={(e) => handleChange(e.target.value, name)}
         disabled={disabled}
@@ -84,7 +84,8 @@ export const SmartFilter = ({
           type === "select" ?
             {
               multiple: multiple,
-              renderValue: renderValue
+              renderValue: renderValue,
+              displayEmpty: Boolean(placeholder)
             }
             : null
         }

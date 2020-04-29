@@ -6,6 +6,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import type { OptionValueType } from "./Types/OptionValueType";
+import { getDropdownSelectedValues } from "src/helpers/Common";
 
 type Props = {
   label: string,
@@ -26,24 +27,6 @@ type Props = {
   helperText?: string
 };
 
-const getSelectedValues = (rawValues, options, multiple = false) => {
-  if (options) {
-    if (multiple) {
-      // create an array of values if multiple
-      let composed = Array<OptionValueType>(rawValues.length);
-      if (options) {
-        for (let i = 0, l = rawValues.length; i < l; i += 1) {
-          composed[i] = options.find(item => item.value === rawValues[i]);
-        }
-      }
-      return composed;
-    }
-
-    return options.find(item => item.value === rawValues);
-  }
-  return "";
-}
-
 export const SmartFilter = ({
   label,
   value,
@@ -62,11 +45,14 @@ export const SmartFilter = ({
   const [internalValue, setInternalValue] = useState(multiple ? [] : "");
 
   const handleChange = (filterValue, name) => {
-    const sendValues = (type !== "select") ? filterValue : getSelectedValues(filterValue, options, multiple);
+    const sendValues = (type !== "select")
+      ? filterValue
+      : (options ? getDropdownSelectedValues(filterValue, options, multiple) : "");
 
     if (onChange && sendValues) {
       onChange(sendValues, name);
     }
+
     // if uncontrolled, then set local state
     if (!value) {
       setInternalValue(filterValue);

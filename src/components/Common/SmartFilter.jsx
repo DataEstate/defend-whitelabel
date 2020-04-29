@@ -22,8 +22,27 @@ type Props = {
   ) => void,
   classes?: string,
   renderValue?: (e: any) => string,
-  disabled?: boolean
+  disabled?: boolean,
+  helperText?: string
 };
+
+const getSelectedValues = (rawValues, options, multiple = false) => {
+  if (options) {
+    if (multiple) {
+      // create an array of values if multiple
+      let composed = Array<OptionValueType>(rawValues.length);
+      if (options) {
+        for (let i = 0, l = rawValues.length; i < l; i += 1) {
+          composed[i] = options.find(item => item.value === rawValues[i]);
+        }
+      }
+      return composed;
+    }
+
+    return options.find(item => item.value === rawValues);
+  }
+  return "";
+}
 
 export const SmartFilter = ({
   label,
@@ -37,26 +56,15 @@ export const SmartFilter = ({
   onChange,
   classes,
   renderValue,
-  disabled = false
+  disabled = false,
+  helperText
 }: Props) => {
   const [internalValue, setInternalValue] = useState(multiple ? [] : "");
 
   const handleChange = (filterValue, name) => {
-    let sendValues = filterValue;
+    const sendValues = (type !== "select") ? filterValue : getSelectedValues(filterValue, options, multiple);
 
-    if (type === "select") {
-      if (multiple) {
-        // create an array of values if multiple
-        sendValues = Array<OptionValueType>(filterValue.length);
-        if (options) {
-          for (let i = 0, l = filterValue.length; i < l; i += 1) {
-            sendValues[i] = options.find(item => item.value === filterValue[i]);
-          }
-        }
-      }
-    }
-
-    if (onChange) {
+    if (onChange && sendValues) {
       onChange(sendValues, name);
     }
     // if uncontrolled, then set local state
@@ -75,17 +83,13 @@ export const SmartFilter = ({
         type={type}
         value={value ? value : internalValue}
         placeholder={placeholder}
-        // for select type, placeholder are not exist, so we use helperText instead
-        helperText={type === "select" && placeholder}
+        helperText={helperText}
         variant={variant}
         onChange={(e) => handleChange(e.target.value, name)}
         disabled={disabled}
         SelectProps={
           type === "select" ?
-            {
-              multiple: multiple,
-              renderValue: renderValue
-            }
+            { multiple, renderValue }
             : null
         }
         select={type === "select"}

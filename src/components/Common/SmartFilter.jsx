@@ -6,6 +6,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import type { OptionValueType } from "./Types/OptionValueType";
+import { getDropdownSelectedValues } from "src/helpers/Common";
 
 type Props = {
   label?: string,
@@ -22,7 +23,8 @@ type Props = {
   ) => void,
   classes?: string,
   renderValue?: () => {} | string,
-  disabled?: boolean
+  disabled?: boolean,
+  helperText?: string
 };
 
 export const SmartFilter = ({
@@ -38,27 +40,19 @@ export const SmartFilter = ({
   classes,
   renderValue,
   disabled = false,
+  helperText
 }: Props) => {
   const [internalValue, setInternalValue] = useState(multiple ? [] : "");
 
   const handleChange = (filterValue, name) => {
-    let sendValues = filterValue;
+    const sendValues = (type !== "select")
+      ? filterValue
+      : (options ? getDropdownSelectedValues(filterValue, options, multiple) : "");
 
-    if (type === "select") {
-      if (multiple) {
-        // create an array of values if multiple
-        sendValues = Array<OptionValueType>(filterValue.length);
-        if (options) {
-          for (let i = 0, l = filterValue.length; i < l; i += 1) {
-            sendValues[i] = options.find(item => item.value === filterValue[i]);
-          }
-        }
-      }
-    }
-
-    if (onChange) {
+    if (onChange && sendValues) {
       onChange(sendValues, name);
     }
+
     // if uncontrolled, then set local state
     if (!value) {
       setInternalValue(filterValue);
@@ -75,16 +69,15 @@ export const SmartFilter = ({
         type={type}
         value={value ? value : internalValue}
         placeholder={placeholder}
-        // for select type, placeholder are not exist, so we use helperText instead
-        // helperText={type === "select" && placeholder}
+        helperText={helperText}
         variant={variant}
         onChange={(e) => handleChange(e.target.value, name)}
         disabled={disabled}
         SelectProps={
           type === "select" ?
             {
-              multiple: multiple,
-              renderValue: renderValue,
+              multiple,
+              renderValue,
               displayEmpty: Boolean(placeholder)
             }
             : null

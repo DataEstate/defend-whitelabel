@@ -37,7 +37,7 @@ export const SearchBar = ({ onChange }: Props) => {
 
   const handleOnChange = (values) => {
     setSelectedValues(values);
-    onChange(values.map(filter => filter.value).toString());
+    onChange((values === "") ? "" : values.map(filter => filter.value).toString());
   }
 
   return (
@@ -50,20 +50,22 @@ export const SearchBar = ({ onChange }: Props) => {
         name="estate-filter"
         // because we will use custom placeholder, we dont need any label here
         // label="Any categories"
-        placeholder="Any Categories"
+        placeholder="Any categories"
         type="select"
         options={options}
-        onChange={(selected, filterName) => { handleOnChange(selected) }}
+        onChange={(selected, filterName) => {
+          handleOnChange(selected);
+        }}
         multiple
-        renderValue={(value) => {
-          if (selectedValues.length < 1 || (selectedValues.length === 1 && value[0] === "")) {
+        renderValue={(values) => {
+          if (values.length < 1 || (values.length === 1 && values[0] === "")) {
             return "Any categories";
           }
-          if (selectedValues.length === 1 && (value[0] !== "" || value[0] !== undefined)) {
-            return options.find(x => x.value === value[0]).label;
+          if (values.length === 1 && (values[0] !== "" || values[0] !== undefined)) {
+            return options.find(x => x.value === values[0]).label;
           }
-          if (selectedValues.length > 1) {
-            return `Categories - ${selectedValues.length}`;
+          if (values.length > 1) {
+            return `Categories - ${values.length}`;
           }
         }}
       />

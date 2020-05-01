@@ -49,7 +49,7 @@ export const SmartFilter = ({
       ? filterValue
       : (options ? getDropdownSelectedValues(filterValue, options, multiple) : "");
 
-    if (onChange && sendValues) {
+    if (onChange) {
       onChange(sendValues, name);
     }
 

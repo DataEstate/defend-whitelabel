@@ -30,11 +30,11 @@ export const EstatesContainer = () => {
       // change url params & re-fetch
       history.push({
         pathname: '/list',
-        search: `?categories=${value}`
+        search: (value !== "") ? `?categories=${value}` : ""
       });
     },
     // delay in ms
-    5000
+    3000
   );
   const { list, listData, fetchEstates, fetch } = useContext(EstatesContext);
   const estatesData = getEstatesArrayFromEstatesData(listData);

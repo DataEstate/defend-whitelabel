@@ -24,18 +24,18 @@ module.exports = () => {
 
   return {
     entry: {
-      index: "./src/index.js"
+      index: "./src/index.js",
     },
     output: {
       path: path.resolve(__dirname, "public"),
-      publicPath: "/"
+      filename: "[name].[hash].bundle.js",
     },
     devServer: {
       port: 9001,
       historyApiFallback: true,
       proxy: {
-        "/api": "http://localhost:3000"
-      }
+        "/api": "http://localhost:3000",
+      },
     },
     module: {
       rules: [
@@ -43,41 +43,41 @@ module.exports = () => {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: {
-            loader: "babel-loader"
-          }
+            loader: "babel-loader",
+          },
         },
         {
           test: /\.html$/,
           use: [
             {
-              loader: "html-loader"
-            }
-          ]
+              loader: "html-loader",
+            },
+          ],
         },
         {
           test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, "css-loader"]
+          use: [MiniCssExtractPlugin.loader, "css-loader"],
         },
         {
           test: /\.scss$/,
-          use: ["style-loader", "css-loader", "sass-loader"]
-        }
-      ]
+          use: ["style-loader", "css-loader", "sass-loader"],
+        },
+      ],
     },
     resolve: {
-      extensions: [".js", ".jsx"]
+      extensions: [".js", ".jsx"],
     },
     plugins: [
       new HtmlWebPackPlugin({
         template: "./src/index.html",
-        filename: "./index.html"
+        filename: "./index.html",
       }),
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
-        filename: "style.css"
+        filename: "style.css",
       }),
-      new webpack.DefinePlugin(envVars)
-    ]
+      new webpack.DefinePlugin(envVars),
+    ],
   };
 };

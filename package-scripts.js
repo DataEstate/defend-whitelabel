@@ -1,4 +1,4 @@
-const { series, concurrent } = require("nps-utils");
+const { series, concurrent, rimraf } = require("nps-utils");
 
 module.exports = {
   scripts: {
@@ -9,6 +9,7 @@ module.exports = {
     test: "npx jest",
     functest: "npx run-p -r start cytest",
     flow: "npx flow check",
-    cytest: "npx cypress run"
-  }
+    cytest: "npx cypress run",
+    deploy: series(rimraf("./public"), "webpack --mode production"),
+  },
 };

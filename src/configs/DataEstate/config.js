@@ -7,13 +7,13 @@ export const config: ConfigurationStateType = {
     baseUrl: `${process.env.API_URL || ""}`,
     apiKey: `${process.env.API_KEY || ""}`,
     defaultQuery: {
-      pg: 1
-    }
+      pg: 1,
+    },
   },
   site: {
     title: "Data Estate",
-    tagline: "Manage your data today"
-  }
+    tagline: "Manage your data today",
+  },
 };
 
 export default config;

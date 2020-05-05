@@ -37,6 +37,11 @@ module.exports = () => {
         "/api": "http://localhost:3000",
       },
     },
+    optimization: {
+      splitChunks: {
+        chunks: "all",
+      },
+    },
     module: {
       rules: [
         {
@@ -71,6 +76,7 @@ module.exports = () => {
       new HtmlWebPackPlugin({
         template: "./src/index.html",
         filename: "./index.html",
+        inject: true,
       }),
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output

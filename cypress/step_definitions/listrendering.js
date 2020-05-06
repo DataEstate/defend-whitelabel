@@ -7,8 +7,8 @@ Given(
       device === "desktop"
         ? "macbook-13"
         : device === "tablet"
-        ? "ipad-2"
-        : "iphone-x";
+          ? "ipad-2"
+          : "iphone-x";
     // desktop screen
     cy.viewport(viewport);
 
@@ -36,15 +36,15 @@ Given(
 
       // if tablet
       if (device === "tablet") {
-        // compare it with third listing
-        cy.get('[data-test-id="estate-item-2"]').then(($item3) => {
+        // compare it with second listing
+        cy.get('[data-test-id="estate-item-1"]').then(($item3) => {
           coordsCompare2 = $item3[0].getBoundingClientRect();
 
           expect(coordsCompare1.y).to.equal(coordsCompare2.y);
         });
 
-        // compare it with fourth listing
-        cy.get('[data-test-id="estate-item-3"]').then(($item4) => {
+        // compare it with third listing
+        cy.get('[data-test-id="estate-item-2"]').then(($item4) => {
           coordsCompare2 = $item4[0].getBoundingClientRect();
 
           expect(coordsCompare1.y).to.not.equal(coordsCompare2.y);

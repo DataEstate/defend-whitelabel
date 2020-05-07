@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useContext, useEffect, Fragment } from "react";
+import React, { useContext, useEffect, Fragment, useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import { useDebouncedCallback } from 'use-debounce';
 import { Backdrop, CircularProgress } from "@material-ui/core";
@@ -37,6 +37,7 @@ export const EstatesContainer = () => {
     3000
   );
   const { list, listData, fetchEstates, fetch } = useContext(EstatesContext);
+  const [filterString, setFilterString] = useState();
   const estatesData = getEstatesArrayFromEstatesData(listData);
 
   // fetch if location changed
@@ -45,8 +46,11 @@ export const EstatesContainer = () => {
       // check if params is empty then load default parameters
       if (location.search === "") {
         fetchEstates();
+        setFilterString("");
       } else {
-        fetchEstates(getQueryParams(location.search.substring(1)));
+        const queryString = getQueryParams(location.search.substring(1));
+        fetchEstates(queryString);
+        setFilterString(queryString);
       }
     }
   }, [location]);
@@ -65,6 +69,7 @@ export const EstatesContainer = () => {
         <CircularProgress />
       </Backdrop>
       <SearchBar
+        categories={filterString && filterString.categories}
         onChange={(values) => setFilterValue(values)}
       />
       {renderList()}

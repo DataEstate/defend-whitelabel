@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MenuItem,
   TextField,
@@ -42,7 +42,11 @@ export const SmartFilter = ({
   disabled = false,
   helperText
 }: Props) => {
-  const [internalValue, setInternalValue] = useState(multiple ? [] : "");
+  const [internalValue, setInternalValue] = useState(value ? (value) : (multiple ? [] : ""));
+
+  useEffect(() => {
+    setInternalValue(value ? (value) : (multiple ? [] : ""));
+  }, [value]);
 
   const handleChange = (filterValue, name) => {
     const sendValues = (type !== "select")
@@ -53,10 +57,8 @@ export const SmartFilter = ({
       onChange(sendValues, name);
     }
 
-    // if uncontrolled, then set local state
-    if (!value) {
-      setInternalValue(filterValue);
-    }
+    // we will update internal state here
+    setInternalValue(filterValue);
   }
 
   const getComponent = () => {
@@ -67,7 +69,7 @@ export const SmartFilter = ({
         name={name}
         label={label}
         type={type}
-        value={value ? value : internalValue}
+        value={internalValue}
         placeholder={placeholder}
         helperText={helperText}
         variant={variant}

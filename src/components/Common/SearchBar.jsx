@@ -20,12 +20,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type Props = {
+  categories?: string,
   onChange: (value: string) => void,
 };
 
-export const SearchBar = ({ onChange }: Props) => {
+export const SearchBar = ({ categories, onChange }: Props) => {
   const classes = useStyles();
-  const [selectedValues, setSelectedValues] = useState([]);
 
   const options = [
     { value: "ACCOMM", label: "Accommodation" },
@@ -35,9 +35,11 @@ export const SearchBar = ({ onChange }: Props) => {
     { value: "RESTAURANT", label: "Restaurants" }
   ];
 
+  const filterValue = (categories) ? categories.split(",") : null;
+
   const handleOnChange = (values) => {
-    setSelectedValues(values);
-    onChange((values === "") ? "" : values.map(filter => filter.value).toString());
+    const returnedValue = Array.isArray(values) ? values.map(filter => filter.value).toString() : "";
+    onChange(returnedValue);
   }
 
   return (
@@ -46,6 +48,7 @@ export const SearchBar = ({ onChange }: Props) => {
         Categories
       </InputLabel>
       <SmartFilter
+        value={filterValue}
         classes={classes.dropdown}
         name="estate-filter"
         // because we will use custom placeholder, we dont need any label here
@@ -58,15 +61,19 @@ export const SearchBar = ({ onChange }: Props) => {
         }}
         multiple
         renderValue={(values) => {
-          if (values.length < 1 || (values.length === 1 && values[0] === "")) {
-            return "Any categories";
+          if (Array.isArray(values)) {
+            if (values.length < 1 || (values.length === 1 && values[0] === "")) {
+              return "Any categories";
+            }
+            if (values.length === 1 && (values[0] !== "" || values[0] !== undefined)) {
+              const currentSelected = options.find(x => x.value === values[0]);
+              return currentSelected ? currentSelected.label : "Unknown";
+            }
+            if (values.length > 1) {
+              return `Categories - ${values.length}`;
+            }
           }
-          if (values.length === 1 && (values[0] !== "" || values[0] !== undefined)) {
-            return options.find(x => x.value === values[0]).label;
-          }
-          if (values.length > 1) {
-            return `Categories - ${values.length}`;
-          }
+          return "Unknown";
         }}
       />
     </Container>

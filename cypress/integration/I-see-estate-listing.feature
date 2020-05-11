@@ -12,7 +12,7 @@ Feature: Estate listing responsiveness
     Given I navigate to the "Home" screen
     And I choose to go to "Estates"
     When I choose to go to "List"
-    Then I see that there are "3" listings on one row on tablet
+    Then I see that there are "2" listings on one row on tablet
 
   @i-see-estate-listing
   Scenario: I navigate to list view on mobile device

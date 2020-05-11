@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export const Home = () => {
   const classes = useStyles();
+
   return (
     <div id="HomeScreen">
       <Typography variant="h3">{"This is Home page"}</Typography>

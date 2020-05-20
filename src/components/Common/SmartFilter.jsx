@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import {
   MenuItem,
   TextField,
+  Checkbox,
+  ListItemText,
 } from "@material-ui/core";
 import type { OptionValueType } from "./Types/OptionValueType";
 import { getDropdownSelectedValues } from "src/helpers/Common";
@@ -21,7 +23,7 @@ type Props = {
     value: string | OptionValueType | Array<OptionValueType>,
     name: string
   ) => void,
-  classes?: string,
+  classes?: {} | string,
   renderValue?: Array<any> => { } | string,
     disabled ?: boolean,
     helperText ?: string
@@ -80,7 +82,8 @@ export const SmartFilter = ({
             {
               multiple,
               renderValue,
-              displayEmpty: Boolean(placeholder)
+              displayEmpty: Boolean(placeholder),
+              classes
             }
             : null
         }
@@ -89,7 +92,11 @@ export const SmartFilter = ({
         {type === "select" && options &&
           options.map((optionItem) => (
             <MenuItem key={optionItem.value} value={optionItem.value}>
-              {optionItem.label}
+              <Checkbox
+                checked={internalValue.indexOf(optionItem.value) > -1}
+                color="primary"
+              />
+              <ListItemText primary={optionItem.label} />
             </MenuItem>
           ))
         }

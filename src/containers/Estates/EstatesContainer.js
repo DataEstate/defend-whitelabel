@@ -34,7 +34,7 @@ export const EstatesContainer = () => {
       });
     },
     // delay in ms
-    3000
+    500
   );
   const { list, listData, fetchEstates, fetch } = useContext(EstatesContext);
   const [filterString, setFilterString] = useState();

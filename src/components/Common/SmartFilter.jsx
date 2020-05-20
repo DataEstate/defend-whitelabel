@@ -1,15 +1,17 @@
 // @flow
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MenuItem,
   TextField,
+  Checkbox,
+  ListItemText,
 } from "@material-ui/core";
 import type { OptionValueType } from "./Types/OptionValueType";
 import { getDropdownSelectedValues } from "src/helpers/Common";
 
 type Props = {
-  label: string,
+  label?: string,
   value?: any,
   name: string,
   placeholder?: string,
@@ -21,10 +23,10 @@ type Props = {
     value: string | OptionValueType | Array<OptionValueType>,
     name: string
   ) => void,
-  classes?: string,
-  renderValue?: (e: any) => string,
-  disabled?: boolean,
-  helperText?: string
+  classes?: {} | string,
+  renderValue?: Array<any> => { } | string,
+    disabled ?: boolean,
+    helperText ?: string
 };
 
 export const SmartFilter = ({
@@ -42,32 +44,34 @@ export const SmartFilter = ({
   disabled = false,
   helperText
 }: Props) => {
-  const [internalValue, setInternalValue] = useState(multiple ? [] : "");
+  const [internalValue, setInternalValue] = useState(value ? (value) : (multiple ? [] : ""));
+
+  useEffect(() => {
+    setInternalValue(value ? (value) : (multiple ? [] : ""));
+  }, [value]);
 
   const handleChange = (filterValue, name) => {
     const sendValues = (type !== "select")
       ? filterValue
       : (options ? getDropdownSelectedValues(filterValue, options, multiple) : "");
 
-    if (onChange && sendValues) {
+    if (onChange) {
       onChange(sendValues, name);
     }
 
-    // if uncontrolled, then set local state
-    if (!value) {
-      setInternalValue(filterValue);
-    }
+    // we will update internal state here
+    setInternalValue(filterValue);
   }
 
   const getComponent = () => {
     return (
       <TextField
-        classes={classes}
+        className={classes}
         data-filter-name={name}
         name={name}
         label={label}
         type={type}
-        value={value ? value : internalValue}
+        value={internalValue}
         placeholder={placeholder}
         helperText={helperText}
         variant={variant}
@@ -75,7 +79,12 @@ export const SmartFilter = ({
         disabled={disabled}
         SelectProps={
           type === "select" ?
-            { multiple, renderValue }
+            {
+              multiple,
+              renderValue,
+              displayEmpty: Boolean(placeholder),
+              classes
+            }
             : null
         }
         select={type === "select"}
@@ -83,7 +92,11 @@ export const SmartFilter = ({
         {type === "select" && options &&
           options.map((optionItem) => (
             <MenuItem key={optionItem.value} value={optionItem.value}>
-              {optionItem.label}
+              <Checkbox
+                checked={internalValue.indexOf(optionItem.value) > -1}
+                color="primary"
+              />
+              <ListItemText primary={optionItem.label} />
             </MenuItem>
           ))
         }

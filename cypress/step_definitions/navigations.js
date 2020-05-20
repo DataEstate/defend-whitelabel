@@ -8,6 +8,13 @@ Given(/I navigate to the "([^"]*)" screen/, (screen) => {
 });
 
 Given(/I choose to go to "([^"]*)"/, (linkName) => {
+  // NOTE: need to attach this before calling the page, do you have any idea how should we implement this?
+  if (linkName === 'Estates') {
+    // get initial API call
+    cy.server();
+    cy.route('GET', '/v2/estates/*').as('getEstate');
+  }
+
   cy.get(".test-app").find(`.MenuItem [data-link-name=${linkName}]`).click();
 });
 

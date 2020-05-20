@@ -3,7 +3,7 @@
 import React from "react";
 import ConfigurationContext from "./ConfigurationContext";
 
-import type { ConfigurationStateType } from "./Types/ConfigurationtStateType";
+import type { ConfigurationStateType } from "./Types/ConfigurationStateType";
 
 const { Provider } = ConfigurationContext;
 

@@ -1,8 +1,10 @@
 // @flow
 
-import React, { useContext, useEffect, Fragment } from "react";
+import React, { useContext, useEffect, Fragment, useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
+import { useDebouncedCallback } from 'use-debounce';
 import { Backdrop, CircularProgress } from "@material-ui/core";
+import { SearchBar } from "src/components/Common";
 import { EstateCards } from "src/components/Estates";
 import { makeStyles } from "@material-ui/core/styles";
 import { EstatesContext } from "src/context/Estates";
@@ -21,34 +23,44 @@ const useStyles = makeStyles((theme) => ({
 export const EstatesContainer = () => {
   const classes = useStyles();
   const location = useLocation();
-
+  const history = useHistory();
+  const [setFilterValue] = useDebouncedCallback(
+    // function
+    (value) => {
+      // change url params & re-fetch
+      history.push({
+        pathname: '/list',
+        search: (value !== "") ? `?categories=${value}` : ""
+      });
+    },
+    // delay in ms
+    500
+  );
   const { list, listData, fetchEstates, fetch } = useContext(EstatesContext);
+  const [filterString, setFilterString] = useState();
   const estatesData = getEstatesArrayFromEstatesData(listData);
 
-  // load data for the first time only (no paging for now)
+  // fetch if location changed
   useEffect(() => {
     if (fetch) {
       // check if params is empty then load default parameters
       if (location.search === "") {
-        fetchEstates({
-          size: 12,
-          fields:
-            "id,name,category,category_code,description,locality,state_code,star_rating,latest_date,rate_from,hero_image",
-          categories: "ACCOMM,ATTRACTION,EVENT,TOUR",
-          star_rated: "true",
-        });
+        fetchEstates();
+        setFilterString("");
       } else {
-        fetchEstates(getQueryParams(location.search.substring(1)));
+        const queryString = getQueryParams(location.search.substring(1));
+        fetchEstates(queryString);
+        setFilterString(queryString);
       }
     }
-  }, []);
+  }, [location]);
 
   const renderList = () => {
     return list ? (
       <EstateCards id="EstateListing" list={estatesData} />
     ) : (
-      <Fragment />
-    );
+        <Fragment />
+      );
   };
 
   return (
@@ -56,6 +68,10 @@ export const EstatesContainer = () => {
       <Backdrop className={classes.backdrop} open={Boolean(fetch.isFetching)}>
         <CircularProgress />
       </Backdrop>
+      <SearchBar
+        categories={filterString && filterString.categories}
+        onChange={(values) => setFilterValue(values)}
+      />
       {renderList()}
     </Fragment>
   );

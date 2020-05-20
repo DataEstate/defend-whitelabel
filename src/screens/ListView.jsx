@@ -18,7 +18,6 @@ export const ListView = () => {
 
   return (
     <div id="ListViewScreen">
-      <Typography variant="h3">{"This is ListView page"}</Typography>
       <EstatesProvider>
         <EstatesContainer />
       </EstatesProvider>

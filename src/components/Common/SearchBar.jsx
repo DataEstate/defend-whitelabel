@@ -1,9 +1,10 @@
 // @flow
 
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import SmartFilter from "./SmartFilter";
 import { Container, InputLabel } from "@material-ui/core";
+import { getCategoryOptions } from "src/helpers/Common";
 
 const useStyles = makeStyles((theme) => ({
   filterSection: {
@@ -24,22 +25,34 @@ type Props = {
   onChange: (value: string) => void,
 };
 
+type RenderValue = (values: Array<any>, defaultLabel?: string, groupLabel?: string) => string;
+
 export const SearchBar = ({ categories, onChange }: Props) => {
   const classes = useStyles();
 
-  const options = [
-    { value: "ACCOMM", label: "Accommodation" },
-    { value: "ATTRACTION", label: "Attraction" },
-    { value: "TOUR", label: "Tour" },
-    { value: "EVENT", label: "Event" },
-    { value: "RESTAURANT", label: "Restaurants" }
-  ];
+  const categoryOptions = getCategoryOptions();
 
   const filterValue = (categories) ? categories.split(",") : null;
 
   const handleOnChange = (values) => {
     const returnedValue = Array.isArray(values) ? values.map(filter => filter.value).toString() : "";
     onChange(returnedValue);
+  }
+
+  const renderValue: RenderValue = (values = [], defaultLabel = "", groupLabel = "Options") => {
+    if (Array.isArray(values)) {
+      if (values.length < 1 || (values.length === 1 && values[0] === "")) {
+        return "Any categories";
+      }
+      if (values.length === 1 && (values[0] !== "" || values[0] !== undefined)) {
+        const currentSelected = categoryOptions.find(x => x.value === values[0]);
+        return currentSelected ? currentSelected.label : defaultLabel;
+      }
+      if (values.length > 1) {
+        return `${groupLabel} - ${values.length}`;
+      }
+    }
+    return defaultLabel;
   }
 
   return (
@@ -55,26 +68,12 @@ export const SearchBar = ({ categories, onChange }: Props) => {
         // label="Any categories"
         placeholder="Any categories"
         type="select"
-        options={options}
+        options={categoryOptions}
         onChange={(selected, filterName) => {
           handleOnChange(selected);
         }}
         multiple
-        renderValue={(values) => {
-          if (Array.isArray(values)) {
-            if (values.length < 1 || (values.length === 1 && values[0] === "")) {
-              return "Any categories";
-            }
-            if (values.length === 1 && (values[0] !== "" || values[0] !== undefined)) {
-              const currentSelected = options.find(x => x.value === values[0]);
-              return currentSelected ? currentSelected.label : "Unknown";
-            }
-            if (values.length > 1) {
-              return `Categories - ${values.length}`;
-            }
-          }
-          return "Unknown";
-        }}
+        renderValue={(values) => renderValue(values, "Unknown", "Categories")}
       />
     </Container>
   );

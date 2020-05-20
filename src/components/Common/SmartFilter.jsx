@@ -22,9 +22,9 @@ type Props = {
     name: string
   ) => void,
   classes?: string,
-  renderValue?: () => {} | string,
-  disabled?: boolean,
-  helperText?: string
+  renderValue?: Array<any> => { } | string,
+    disabled ?: boolean,
+    helperText ?: string
 };
 
 export const SmartFilter = ({
